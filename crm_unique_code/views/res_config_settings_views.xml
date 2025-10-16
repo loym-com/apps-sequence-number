@@ -15,7 +15,7 @@
                                     <b>5 digits</b>: {id:0>5} -
                                     <b>date</b>: {create_date:%Y-%m-%d} -
                                     <b>related</b>: {related_id.field} -
-                                    <b>sequence</b>: {_sequence_}
+                                    <b>sequence</b>: {sequence_code}
                                 </p>
                             </div>
                             <!-- <div class="col-12 col-lg-6 o_setting_box">
@@ -39,7 +39,7 @@
                                 <field
                                     name="crm_lead_unique_code_pattern"
                                     class="w-100"
-                                    placeholder="{_sequence_}"
+                                    placeholder="{sequence_code}"
                                 />
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
