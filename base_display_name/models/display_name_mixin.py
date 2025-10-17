@@ -57,7 +57,11 @@ class DisplayNameMixin(models.AbstractModel):
 
     def _get_value_from_pattern(self, pattern):
         if pattern:
-            value = safe_eval(f"f{repr(pattern)}", {"r": self})
+            try:
+                value = safe_eval(f"f{repr(pattern)}", {"r": self})
+            except Exception as e:
+                _logger.warning("Error evaluating display pattern %r for %s(%d): %s", pattern, self._name, self.id, e)
+                value = None
             if value:
                 return value
 
