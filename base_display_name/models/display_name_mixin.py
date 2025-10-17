@@ -18,7 +18,7 @@ class DisplayNameMixin(models.AbstractModel):
 
     @api.model
     def _search_display_name(self, operator, value):
-        search_fnames = self._get_display_field_paths("display_name_pattern")
+        search_fnames = self._get_display_field_paths("display_name_pattern", source="ir.model")
         if not search_fnames:
             return super()._search_display_name(operator, value)
 
@@ -30,14 +30,14 @@ class DisplayNameMixin(models.AbstractModel):
         aggregator = expression.AND if operator in expression.NEGATIVE_TERM_OPERATORS else expression.OR
         return aggregator([[(field_name, operator, value)] for field_name in search_fnames])
     
-    @api.depends(lambda self: self._get_display_field_paths("display_name_pattern"))
+    @api.depends(lambda self: self._get_display_field_paths("display_name_pattern", source="ir.model"))
     def _compute_display_name(self):
         super()._compute_display_name()
-        self._set_field_from_pattern_name("display_name", "display_name_pattern")
+        self._set_field_from_pattern_name("display_name", "display_name_pattern", "ir.model")
 
     # low-level
 
-    def _set_field_from_pattern_name(self, display_fname, pattern_name, source="ir.model"):
+    def _set_field_from_pattern_name(self, display_fname, pattern_name, source):
         """
         Set a field (e.g. "display_name" or "unique_code") based on a pattern.
         display_fname: The name of the display field to compute.
@@ -65,25 +65,29 @@ class DisplayNameMixin(models.AbstractModel):
             if value:
                 return value
 
-    def _get_display_field_paths(self, pattern_name, validate=True):
-        pattern = self._get_display_pattern(pattern_name)
+    def _get_display_field_paths(self, pattern_name, source, validate=True):
+        """
+        return: tuple of field paths, e.g. ('name', 'parent_id.name')
+        This is useful to compute fields, and to search computed non-stored fields, like this:
+
+        @api.depends(lambda self: self._get_display_field_paths("display_name_pattern", "ir.model"))
+        def _compute_display_name(self):
+
+        @api.model
+        def _search_display_name(self, operator, value):
+            search_fnames = self._get_display_field_paths("display_name_pattern", "ir.model")
+        """
+        pattern = self._get_display_pattern(pattern_name, source)
         return self._get_display_field_paths_from_string(pattern, validate)
 
-    def _get_display_field_paths_from_string(self, fields_input, validate=True):
-        """fields_input: Either a pattern string with placeholders,
-        e.g. "{r.field1} {r.field2}", or a comma-separated string, e.g. "field1, field2".
-        return: tuple of field paths, e.g. ('field1', 'field2')
+    def _get_display_field_paths_from_string(self, pattern, validate=True):
         """
-        if "{" in fields_input and "}" in fields_input:
-            # Treat as pattern string with placeholders
-            # Regex from your pattern function: {field[:!format]}
-            field_paths = extract_r_paths_from_template(fields_input)
-            # regexp = r"r\.([a-zA-Z_][a-zA-Z0-9_\.]*)"
-            # regexp = r"\{([\w.]+)(?:[:!][^}]*)?\}"
-            # field_paths = [m.group(1) for m in re.finditer(regexp, fields_input)]
-        else:
-            # Treat as comma-separated list
-            field_paths = [part.strip() for part in fields_input.split(",") if part.strip()]
+        pattern: string to safe_eval, e.g. "{r.date:%Y-%m-%d} {r.parent_id.id:0>5}"
+        r: record (self)
+
+        return: tuple without r. and formatting, e.g. ('date', 'parent_id.id')
+        """
+        field_paths = extract_r_paths_from_pattern(pattern)
 
         if not validate:
             return tuple(field_paths)
@@ -102,10 +106,11 @@ class DisplayNameMixin(models.AbstractModel):
         else:
             return True
 
-    def _get_display_pattern(self, pattern_name, source="ir.model"):
-        """pattern_name: The name of the ir.model field or ir.config_parameter key
-        with the pattern."""
-
+    def _get_display_pattern(self, pattern_name, source):
+        """
+        pattern_name: Name of ir.model field or ir.config_parameter key with pattern.
+        source: "ir.model" or "ir.config_parameter"
+        """
         # To install apps without errors:
         # - Do not prefetch fields.
         if source == "ir.model":
@@ -143,16 +148,16 @@ class DisplayNameMixin(models.AbstractModel):
                 return (None, None)
         return (value, value_type)
 
-def extract_r_paths_from_template(template):
+def extract_r_paths_from_pattern(pattern):
     """
-    Extract all attribute paths starting with `r.` from a template string.
+    Extract all attribute paths starting with `r.` from a pattern string.
     
     Handles formatting and simple conditionals in f-string style.
     Returns a set of attribute paths without the leading 'r.'.
     """
     # 1️⃣ Match everything inside braces {}
     brace_pattern = r"\{([^{}]+)\}"  # matches { … } contents
-    matches = re.findall(brace_pattern, template)
+    matches = re.findall(brace_pattern, pattern)
     
     # 2️⃣ For each match, extract r.something paths
     r_path_pattern = r"r\.([a-zA-Z_][a-zA-Z0-9_\.]*)"

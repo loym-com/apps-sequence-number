@@ -66,7 +66,7 @@ class UniqueCodeMixin(models.AbstractModel):
 
     def _set_unique_code(self):
         return self._set_field_from_pattern_name(
-            "unique_code", "unique_code_pattern"
+            "unique_code", "unique_code_pattern", "ir.model"
         )
 
     def _set_name_if_empty(self):
