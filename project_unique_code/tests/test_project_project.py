@@ -29,7 +29,7 @@ class TestProjectSequence(TransactionCase):
                 "company_id": False,
             }
         )
-        cls.ir_model = cls.env["project.project"]._get_ir_model()
+        cls.ir_model = cls.env["ir.model"].search([("model", "=", "project.project")])
         cls.ir_model.display_name_pattern = "{unique_code} - {name}"
         cls.ir_model.unique_code_pattern = "{__sequence__}"
         cls.ir_model.unique_code_sequence_id = cls.prj_seq.id

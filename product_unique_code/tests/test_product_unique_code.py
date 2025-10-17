@@ -12,8 +12,7 @@ class TestProductUniqueCode(TransactionCase):
         super().setUpClass()
         cls.product_product = cls.env["product.product"]
         cls.product_template = cls.env["product.template"]
-        # cls.ir_model_template = cls.product_template._get_ir_model()
-        cls.ir_model_variant = cls.product_product._get_ir_model()
+        cls.ir_model = cls.env["ir.model"].search([("model", "=", "product.product")])
         cls.ir_model_variant.unique_code_pattern = "P{id:0>5}"
 
     def test_product_product_creation(self):

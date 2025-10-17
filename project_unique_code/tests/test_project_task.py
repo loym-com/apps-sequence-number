@@ -20,7 +20,7 @@ class TestProjectTask(common.TransactionCase):
                 "company_id": False,
             }
         )
-        cls.ir_model = cls.env["project.task"]._get_ir_model()
+        cls.ir_model = cls.env["ir.model"].search([("model", "=", "project.task")])
         cls.ir_model.display_name_pattern = "[{unique_code}] {name}"
         cls.ir_model.unique_code_pattern = "{__sequence__}"
         cls.ir_model.unique_code_sequence_id = cls.task_sequence.id
