@@ -31,7 +31,7 @@ class IrModel(models.Model):
     def _check_display_field_paths(self, field_name):
         for model in self:
             Model = self.env[model.model]
-            field_paths = Model._get_display_field_paths(field_name, validate=False)
+            field_paths = Model._get_display_field_paths(field_name, "ir.model", validate=False)
             if not Model._is_valid_display_field_paths(field_paths):
                 raise ValidationError(
                     f"_check_display_name_field_paths: "
