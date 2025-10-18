@@ -5,6 +5,7 @@ import re
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.addons.expression_value.expression_value import ExpressionValue
 
 _logger = logging.getLogger(__name__)
 
@@ -12,7 +13,7 @@ _logger = logging.getLogger(__name__)
 class IrModel(models.Model):
     _inherit = "ir.model"
 
-    display_name_pattern = fields.Char(
+    display_name_expression = fields.Char(
         string="Name Pattern",
         help=(
             "Example: '{parent_id.display_code}/{display_code} - {name}'\n"
@@ -24,16 +25,17 @@ class IrModel(models.Model):
         ),
     )
 
-    @api.constrains("display_name_pattern")
+    @api.constrains("display_name_expression")
     def _check_display_name_field_paths(self):
-        return self._check_display_field_paths("display_name_pattern")
-
-    def _check_display_field_paths(self, field_name):
         for model in self:
-            Model = self.env[model.model]
-            field_paths = Model._get_display_field_paths(field_name, "ir.model", validate=False)
-            if not Model._is_valid_display_field_paths(field_paths):
+            expr_value = ExpressionValue(
+                source="ir.model",
+                source_model=model._name,
+                source_lookup="display_name_expression",
+                record=model,
+            )
+            if not expr_value.all_paths_are_valid:
                 raise ValidationError(
                     f"_check_display_name_field_paths: "
-                    f"At least one field is not valid: {field_paths}"
+                    f"At least one field is not valid: {expr_value.field_paths}"
                 )

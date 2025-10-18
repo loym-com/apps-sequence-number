@@ -8,7 +8,10 @@
     "data": [
         "views/ir_model_views.xml",
     ],
-    "depends": ["base_setup"],
+    "depends": [
+        "base_setup",
+        "compute_value_from_expression",
+    ],
     "license": "LGPL-3",
     "pre_init_hook": "pre_init_hook",
     "version": "18.0.5.0.0",

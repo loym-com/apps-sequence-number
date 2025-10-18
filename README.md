@@ -24,8 +24,8 @@ It shows how one may implement a sequence for a model:
 - Inherit "sequence.code.mixin"
 - Add views to show the sequence_code.
 - Optionally, depend on `display_name`.
-- Use a post_init_hook to set a default sequence and display_name_pattern.
-- Use "res.config.settings" to let the user set a custom display_name_pattern.
+- Use a post_init_hook to set a default sequence and display_name_expression.
+- Use "res.config.settings" to let the user set a custom display_name_expression.
   Save the pattern to "ir.model" (not "ir.config_parameter").
 
 `sequence` and `display_name` are made with two use cases in mind:

@@ -4,33 +4,33 @@ from odoo import api, fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    project_project_display_name_pattern = fields.Char(
-        related="ir_model_project_project.display_name_pattern",
+    project_project_display_name_expression = fields.Char(
+        related="ir_model_project_project.display_name_expression",
         readonly=False,
         string="Project Display Name Pattern",
     )
-    project_project_unique_code_pattern = fields.Char(
-        related="ir_model_project_project.unique_code_pattern",
+    project_project_unique_code_expression = fields.Char(
+        related="ir_model_project_project.unique_code_expression",
         readonly=False,
         string="Project Unique Code Pattern",
     )
-    project_project_unique_code_sequence_id = fields.Many2one(
-        related="ir_model_project_project.unique_code_sequence_id",
+    project_project_sequence_id = fields.Many2one(
+        related="ir_model_project_project.sequence_id",
         readonly=False,
         string="Project Sequence",
     )
-    project_task_display_name_pattern = fields.Char(
-        related="ir_model_project_task.display_name_pattern",
+    project_task_display_name_expression = fields.Char(
+        related="ir_model_project_task.display_name_expression",
         readonly=False,
         string="Task Display Name Pattern",
     )
-    project_task_unique_code_pattern = fields.Char(
-        related="ir_model_project_task.unique_code_pattern",
+    project_task_unique_code_expression = fields.Char(
+        related="ir_model_project_task.unique_code_expression",
         readonly=False,
         string="Task Unique Code Pattern",
     )
-    project_task_unique_code_sequence_id = fields.Many2one(
-        related="ir_model_project_task.unique_code_sequence_id",
+    project_task_sequence_id = fields.Many2one(
+        related="ir_model_project_task.sequence_id",
         readonly=False,
         string="Task Sequence",
     )

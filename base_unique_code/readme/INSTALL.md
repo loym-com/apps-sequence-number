@@ -1,3 +1,14 @@
+Implement unique_code for a model this way:
+
+```
+from odoo import models
+
+class ResPartner(models.Model):
+    _name = "res.partner"
+    _inherit = ["res.partner", "unique.code.mixin"]
+```
+
+```
 <odoo>
     <record id="crm_lead_action_set_unique_code" model="ir.actions.server">
         <field name="name">Set No.</field>
@@ -12,3 +23,6 @@ records.set_sequence_code_unique_code_and_name()
         </field>
     </record>
 </odoo>
+```
+
+Show `unique_code` in views.

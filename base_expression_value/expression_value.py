@@ -6,7 +6,7 @@ from odoo.tools.safe_eval import safe_eval
 _logger = logging.getLogger(__name__)
 
 
-class ComputeValueFromExpression(object):
+class ExpressionValue(object):
     """
     The purpose of this class is to compute a value,
     based on a user-defined python expression
@@ -30,13 +30,15 @@ class ComputeValueFromExpression(object):
             "{'active' if r.active else 'archived'}"
             "{r.first_name} {r.last_name}"
     """
+    # input
     source = str()
     source_model = str()
     source_lookup = str()
     record = object()
     field = str()
+    # input / output
     expression = str()
-
+    # output
     field_paths = tuple()
     all_paths_are_valid = bool()
     value = str()
@@ -80,15 +82,6 @@ class ComputeValueFromExpression(object):
         if self.record and self.field and self.value:
             self.update_record_field()
 
-    def get_ir_model(self, prefetch_fields=True):
-        if not self.record:
-            raise ValueError("Missing self.record")
-        IrModel = self.record.env["ir.model"].sudo()
-        IrModel = IrModel.with_context(prefetch_fields=prefetch_fields)
-        # To install apps without errors:
-        # - Order by a field which always exists.
-        return IrModel.search([("model", "=", self.record._name)], order="id")
-
     def get_expression(self):
         """
         Return: A user-defined string with a python expression.
@@ -96,7 +89,7 @@ class ComputeValueFromExpression(object):
         # To install apps without errors:
         # - Do not prefetch fields.
         if self.source == "ir.model":
-            ir_model = self.get_ir_model(prefetch_fields=False)
+            ir_model = self.record.get_ir_model(prefetch_fields=False)
             return getattr(ir_model, self.source_lookup) or ""
         elif self.source == "ir.config_parameter":
             param = self.record.env["ir.config_parameter"].sudo().get_param(self.source_lookup)

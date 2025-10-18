@@ -21,11 +21,11 @@
                             <!-- <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_crm_lead" invisible="1"/>
                                 <label
-                                    for="crm_lead_display_name_pattern"
+                                    for="crm_lead_display_name_expression"
                                     string="Computed Lead Name Pattern"
                                 />
                                 <field
-                                    name="crm_lead_display_name_pattern"
+                                    name="crm_lead_display_name_expression"
                                     class="w-100"
                                     placeholder="{unique_code} - {name}"
                                 />
@@ -33,19 +33,19 @@
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_crm_lead" invisible="1"/>
                                 <label
-                                    for="crm_lead_unique_code_pattern"
+                                    for="crm_lead_unique_code_expression"
                                     string="Stored Unique Lead No. Pattern"
                                 />
                                 <field
-                                    name="crm_lead_unique_code_pattern"
+                                    name="crm_lead_unique_code_expression"
                                     class="w-100"
                                     placeholder="{sequence_code}"
                                 />
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_crm_lead" invisible="1"/>
-                                <label for="crm_lead_unique_code_sequence_id" string="Lead Sequence"/>
-                                <field name="crm_lead_unique_code_sequence_id" class="w-100"/>
+                                <label for="crm_lead_sequence_id" string="Lead Sequence"/>
+                                <field name="crm_lead_sequence_id" class="w-100"/>
                             </div>
                         </div>
                     </div>

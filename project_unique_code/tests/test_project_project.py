@@ -30,9 +30,9 @@ class TestProjectSequence(TransactionCase):
             }
         )
         cls.ir_model = cls.env["ir.model"].search([("model", "=", "project.project")])
-        cls.ir_model.display_name_pattern = "{unique_code} - {name}"
-        cls.ir_model.unique_code_pattern = "{__sequence__}"
-        cls.ir_model.unique_code_sequence_id = cls.prj_seq.id
+        cls.ir_model.display_name_expression = "{unique_code} - {name}"
+        cls.ir_model.unique_code_expression = "{__sequence__}"
+        cls.ir_model.sequence_id = cls.prj_seq.id
         default_plan_id = cls.env["account.analytic.plan"].search([], limit=1)
         cls.analytic_account = cls.env["account.analytic.account"].create(
             {
@@ -133,15 +133,15 @@ class TestProjectSequence(TransactionCase):
     def test_custom_pattern(self):
         """Display name pattern can be customized."""
         model = self.env["ir.model"].sudo().search([("model", "=", "project.project")])
-        model.display_name_pattern = "{name}/{unique_code}"
+        model.display_name_expression = "{name}/{unique_code}"
         proj = self.env["project.project"].create({"name": "one"})
         self.assertEqual(proj.display_name, "one/23-00011")
         self.assertEqual(proj.unique_code, "23-00011")
-        model.display_name_pattern = "{name}"
+        model.display_name_expression = "{name}"
         proj = self.env["project.project"].create({"name": "two"})
         self.assertEqual(proj.display_name, "two")
         self.assertEqual(proj.unique_code, "23-00012")
-        model.display_name_pattern = "{unique_code}"
+        model.display_name_expression = "{unique_code}"
         proj = self.env["project.project"].create({"name": "three"})
         self.assertEqual(proj.display_name, "23-00013")
         self.assertEqual(proj.unique_code, "23-00013")

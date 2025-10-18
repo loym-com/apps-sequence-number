@@ -17,18 +17,18 @@ class TestDisplayName(TransactionCase):
         )
 
     def test_1_display_name(self):
-        self.report_model.display_name_pattern = False
+        self.report_model.display_name_expression = False
         self.report._invalidate_cache(["display_name"])
         self.assertEqual(self.report.display_name, "Test Report")
 
-        self.report_model.display_name_pattern = "{id:0>5} - {name}"
+        self.report_model.display_name_expression = "{id:0>5} - {name}"
         self.report._invalidate_cache(["display_name"])
         name = "Test Report"
         self.assertEqual(self.report.display_name, f"{self.report.id:0>5} - {name}")
 
         # Pattern with dotted field, number format and date format
         pattern = "{create_uid.id:0>3}/{create_date:%Y-%m-%d} - {name}"
-        self.report_model.display_name_pattern = pattern
+        self.report_model.display_name_expression = pattern
         self.report._invalidate_cache(["display_name"])
         self.assertEqual(
             self.report.display_name, pattern.format(
@@ -38,27 +38,27 @@ class TestDisplayName(TransactionCase):
             )
         )
 
-    def test_2a_invalid_display_name_pattern(self):
+    def test_2a_invalid_display_name_expression(self):
         self.env.cr.execute(
             f"UPDATE ir_model "
-            f"SET display_name_pattern = '{{invalid_field}}'"
+            f"SET display_name_expression = '{{invalid_field}}'"
             f"WHERE id = {self.report_model.id};"
         )
         self.report._invalidate_cache(["display_name"])
         self.assertEqual(self.report.display_name, "Test Report")
 
-    def test_2b_set_invalid_display_name_pattern(self):
+    def test_2b_set_invalid_display_name_expression(self):
         with self.assertRaises(ValidationError):
-            self.report_model.display_name_pattern = "{invalid_field}"
+            self.report_model.display_name_expression = "{invalid_field}"
 
     def test_3a_false_boolean(self):
         self.report.multi = False
-        self.report_model.display_name_pattern = "{multi}"
+        self.report_model.display_name_expression = "{multi}"
         self.report._invalidate_cache(["display_name"])
         self.assertEqual(self.report.display_name, "False")
 
     def test_3b_false_char(self):
         self.report.path = False
-        self.report_model.display_name_pattern = "{path}"
+        self.report_model.display_name_expression = "{path}"
         self.report._invalidate_cache(["display_name"])
         self.assertEqual(self.report.display_name, "Test Report")

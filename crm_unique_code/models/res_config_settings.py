@@ -4,18 +4,18 @@ from odoo import api, fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    crm_lead_display_name_pattern = fields.Char(
-        related="ir_model_crm_lead.display_name_pattern",
+    crm_lead_display_name_expression = fields.Char(
+        related="ir_model_crm_lead.display_name_expression",
         readonly=False,
         string="CRM Display Name Pattern",
     )
-    crm_lead_unique_code_pattern = fields.Char(
-        related="ir_model_crm_lead.unique_code_pattern",
+    crm_lead_unique_code_expression = fields.Char(
+        related="ir_model_crm_lead.unique_code_expression",
         readonly=False,
         string="CRM Unique Code Pattern",
     )
-    crm_lead_unique_code_sequence_id = fields.Many2one(
-        related="ir_model_crm_lead.unique_code_sequence_id",
+    crm_lead_sequence_id = fields.Many2one(
+        related="ir_model_crm_lead.sequence_id",
         readonly=False,
         string="CRM Sequence",
     )

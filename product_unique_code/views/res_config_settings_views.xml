@@ -20,18 +20,18 @@
                             </div>
                             <!-- <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_product_template" invisible="1"/>
-                                <label for="product_template_display_name_pattern" string="Computed Product Template Name Pattern"/>
+                                <label for="product_template_display_name_expression" string="Computed Product Template Name Pattern"/>
                                 <field
-                                    name="product_template_display_name_pattern"
+                                    name="product_template_display_name_expression"
                                     class="w-100"
                                     placeholder="{unique_code} - {name}"
                                 />
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_product_product" invisible="1"/>
-                                <label for="product_product_display_name_pattern" string="Computed Product Variant Name Pattern"/>
+                                <label for="product_product_display_name_expression" string="Computed Product Variant Name Pattern"/>
                                 <field
-                                    name="product_product_display_name_pattern"
+                                    name="product_product_display_name_expression"
                                     class="w-100"
                                     placeholder="{unique_code} - {name}"
                                 />
@@ -39,9 +39,9 @@
 
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_product_template" invisible="1"/>
-                                <label for="product_template_unique_code_pattern" string="Stored Unique Product Template No. Pattern"/>
+                                <label for="product_template_unique_code_expression" string="Stored Unique Product Template No. Pattern"/>
                                 <field
-                                    name="product_template_unique_code_pattern"
+                                    name="product_template_unique_code_expression"
                                     class="w-100"
                                     placeholder="{id:0>5} or {sequence_code}"
                                     readonly="product_template_unique_code_from_variant"
@@ -49,9 +49,9 @@
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_product_template" invisible="1"/>
-                                <label for="product_template_unique_code_sequence_id" string="Product Template Sequence"/>
+                                <label for="product_template_sequence_id" string="Product Template Sequence"/>
                                 <field
-                                    name="product_template_unique_code_sequence_id"
+                                    name="product_template_sequence_id"
                                     class="w-100"
                                     readonly="product_template_unique_code_from_variant"
                                 />
@@ -59,18 +59,18 @@
 
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_product_product" invisible="1"/>
-                                <label for="product_product_unique_code_pattern" string="Stored Unque Product Variant No. Pattern"/>
+                                <label for="product_product_unique_code_expression" string="Stored Unque Product Variant No. Pattern"/>
                                 <field
-                                    name="product_product_unique_code_pattern"
+                                    name="product_product_unique_code_expression"
                                     class="w-100"
                                     placeholder="{id:0>5} or {sequence_code}"
                                 />
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_product_product" invisible="1"/>
-                                <label for="product_product_unique_code_sequence_id" string="Product Variant Sequence"/>
+                                <label for="product_product_sequence_id" string="Product Variant Sequence"/>
                                 <field
-                                    name="product_product_unique_code_sequence_id"
+                                    name="product_product_sequence_id"
                                     class="w-100"
                                 />
                             </div>
@@ -78,7 +78,7 @@
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <label for="product_template_unique_code_from_variant" string="Get Product Template No. From Variant"/>
                                 <div class="o_setting_left_pane">
-                                    <!-- <field name="product_template_unique_code_from_variant" class="w-100" readonly="product_template_unique_code_pattern or ir_model_product_template"/> -->
+                                    <!-- <field name="product_template_unique_code_from_variant" class="w-100" readonly="product_template_unique_code_expression or ir_model_product_template"/> -->
                                     <field name="product_template_unique_code_from_variant" class="w-100"/>
                                 </div>
                             </div>

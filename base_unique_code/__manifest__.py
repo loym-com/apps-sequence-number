@@ -11,12 +11,12 @@
         "views/res_partner_views.xml",
     ],
     "depends": [
-        "base_display_name",
         "base_setup",
+        "compute_value_from_expression",
         "mail", # problem that the field "unique_code" exists everywhere
     ],
     "license": "LGPL-3",
     "pre_init_hook": "pre_init_hook",
-    "version": "18.0.5.0.0",
+    "version": "18.0.5.0.1",
     "website": "https://www.loym.com",
 }

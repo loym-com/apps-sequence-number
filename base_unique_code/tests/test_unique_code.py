@@ -27,11 +27,11 @@ class TestUniqueCode(TransactionCase):
             ]
         )
         self.model = self.env.ref("base.model_res_partner")
-        self.model.unique_code_pattern = "{__sequence__}"
-        self.model.unique_code_sequence_id = sequence.id
+        self.model.unique_code_expression = "{__sequence__}"
+        self.model.sequence_id = sequence.id
 
     def test_0_sequence(self):
-        self.model.unique_code_pattern = ""
+        self.model.unique_code_expression = ""
         record = self.env[self.model.model].create({"name": "Test Partner"})
         self.assertEqual(record.unique_code, False)
         self.assertEqual(record.name, "Test Partner")
@@ -54,3 +54,55 @@ class TestUniqueCode(TransactionCase):
         # Contact name is mandatory except when type == "other"
         record = self.env[self.model.model].create({"type": "other"})
         self.assertEqual(record.name, "partner-00001")
+
+    # From sequence_choice
+
+    def test_1_count_sequences(self):
+        Sequence = self.env["ir.sequence"]
+        model = self.env.ref("base.model_res_lang")
+        seq_count1 = Sequence.search_count([])
+        model.unique_code_expression = "{__sequence__}"
+        model.sequence_field_id = self._get_field(model.id, "direction").id
+        seq_count2 = Sequence.search_count([])
+        self.assertEqual(seq_count1 + 2, seq_count2, "Add 2 directions: ltr and rtl")
+
+    def test_choice_boolean(self):
+        model = self.env.ref("base.model_res_groups")
+        model.unique_code_expression = "{__sequence__}"
+        model.sequence_field_id = self._get_field(model.id, "share").id
+        record = self.env[model.model].create(
+            {"name": "Test Group", "share": False}
+        )
+        self.assertEqual(record.unique_code, "False-00001")
+        record.unique_code = ""
+        self.assertEqual(record.unique_code, "")
+        record.set_sequence_code_unique_code_and_name()
+        self.assertEqual(record.unique_code, "False-00002")
+
+    def test_choice_many2one(self):
+        model = self.env.ref("base.model_res_partner")
+        model.sequence_field_id = self._get_field(model.id, "title").id
+        title = self.env.ref("base.res_partner_title_madam")
+        record = self.env[model.model].create(
+            {"name": "Test Contact", "title": title.id}
+        )
+        self.assertEqual(record.ref, f"{title.id}-00001")
+        record.ref = ""
+        self.assertEqual(record.ref, "")
+        record.set_sequence_code_unique_code_and_name()
+        self.assertEqual(record.ref, f"{title.id}-00002")
+
+    def test_choice_selection(self):
+        model = self.env.ref("base.model_res_lang")
+        model.unique_code_expression = "{__sequence__}"
+        model.sequence_field_id = self._get_field(model.id, "direction").id
+        record = self.env[model.model].create(
+            {"name": "Test Language", "direction": "ltr", "code": "test"}
+        )
+        self.assertEqual(record.unique_code, "ltr-00001")
+        record.unique_code = ""
+        self.assertEqual(record.unique_code, "")
+        record.set_sequence_code_unique_code_and_name()
+        self.assertEqual(record.unique_code, "ltr-00002")
+
+

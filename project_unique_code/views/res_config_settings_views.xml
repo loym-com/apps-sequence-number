@@ -20,18 +20,18 @@
                             </div>
                             <!-- <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_project_project" invisible="1"/>
-                                <label for="project_project_display_name_pattern" string="Computed Project Name Pattern"/>
+                                <label for="project_project_display_name_expression" string="Computed Project Name Pattern"/>
                                 <field
-                                    name="project_project_display_name_pattern"
+                                    name="project_project_display_name_expression"
                                     class="w-100"
                                     placeholder="{unique_code} - {name}"
                                 />
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_project_task" invisible="1"/>
-                                <label for="project_task_display_name_pattern" string="Computed Task Name Pattern"/>
+                                <label for="project_task_display_name_expression" string="Computed Task Name Pattern"/>
                                 <field
-                                    name="project_task_display_name_pattern"
+                                    name="project_task_display_name_expression"
                                     class="w-100"
                                     placeholder="{unique_code} - {name}"
                                 />
@@ -39,18 +39,18 @@
 
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_project_project" invisible="1"/>
-                                <label for="project_project_unique_code_pattern" string="Stored Unique Project No. Pattern"/>
+                                <label for="project_project_unique_code_expression" string="Stored Unique Project No. Pattern"/>
                                 <field
-                                    name="project_project_unique_code_pattern"
+                                    name="project_project_unique_code_expression"
                                     class="w-100"
                                     placeholder="{sequence_code}"
                                 />
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_project_task" invisible="1"/>
-                                <label for="project_task_unique_code_pattern" string="Stored Unique Task No. Pattern"/>
+                                <label for="project_task_unique_code_expression" string="Stored Unique Task No. Pattern"/>
                                 <field
-                                    name="project_task_unique_code_pattern"
+                                    name="project_task_unique_code_expression"
                                     class="w-100"
                                     placeholder="{sequence_code}"
                                 />
@@ -58,13 +58,13 @@
 
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_project_project" invisible="1"/>
-                                <label for="project_project_unique_code_sequence_id" string="Project Sequence"/>
-                                <field name="project_project_unique_code_sequence_id" class="w-100"/>
+                                <label for="project_project_sequence_id" string="Project Sequence"/>
+                                <field name="project_project_sequence_id" class="w-100"/>
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <field name="ir_model_project_task" invisible="1"/>
-                                <label for="project_task_unique_code_sequence_id" string="Task Sequence"/>
-                                <field name="project_task_unique_code_sequence_id" class="w-100"/>
+                                <label for="project_task_sequence_id" string="Task Sequence"/>
+                                <field name="project_task_sequence_id" class="w-100"/>
                             </div>
                         </div>
                     </div>

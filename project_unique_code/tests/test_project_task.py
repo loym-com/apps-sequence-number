@@ -21,9 +21,9 @@ class TestProjectTask(common.TransactionCase):
             }
         )
         cls.ir_model = cls.env["ir.model"].search([("model", "=", "project.task")])
-        cls.ir_model.display_name_pattern = "[{unique_code}] {name}"
-        cls.ir_model.unique_code_pattern = "{__sequence__}"
-        cls.ir_model.unique_code_sequence_id = cls.task_sequence.id
+        cls.ir_model.display_name_expression = "[{unique_code}] {name}"
+        cls.ir_model.unique_code_expression = "{__sequence__}"
+        cls.ir_model.sequence_id = cls.task_sequence.id
 
     def setUp(self):
         super().setUp()
