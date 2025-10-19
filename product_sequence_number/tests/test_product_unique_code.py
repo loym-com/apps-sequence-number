@@ -52,7 +52,7 @@ class TestProductUniqueCode(TransactionCase):
         """
 
         self.env["ir.config_parameter"].sudo().set_param(
-            "product_sequence_number.product_template_sequence_number_from_variant", "True"
+            "product_sequence_number.product_template_sequence_number_from_main_variant", "True"
         )
 
         # Create a product template
