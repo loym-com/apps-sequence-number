@@ -60,7 +60,7 @@ class UniqueCodeMixin(models.AbstractModel):
         number_sequence_option = self.get_ir_model().number_sequence_option
         if not number_sequence_option:
             return
-        elif number_sequence_option == "one":
+        elif number_sequence_option == "sequence":
             sequence = self.get_ir_model(prefetch_fields=False).number_sequence_id
             if not sequence:
                 return
@@ -71,7 +71,7 @@ class UniqueCodeMixin(models.AbstractModel):
             if not choice_field:
                 return
             for record in records:
-                choice_value = getattr(record, choice_field)
+                choice_value = getattr(record, choice_field.name)
                 if choice_field.ttype == "many2one":
                     choice_value = choice_value.id
                 choice_value = str(choice_value)
