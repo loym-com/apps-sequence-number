@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <field name="modules" position="after">
                 <field name="number_field_exists" invisible="1"/>
-                <field name="number_expression" invisible="not number_field_exists" placeholder="{sequence_code}"/>
+                <field name="number_expression" invisible="not number_field_exists" placeholder="{r.sequence_code}"/>
                 <field name="number_sequence_option" invisible="not number_field_exists"/>
                 <field name="number_sequence_id" invisible="number_sequence_option != 'sequence'"/>
                 <field name="model" invisible="1"/>

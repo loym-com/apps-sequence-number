@@ -15,7 +15,7 @@
                                     <b>5 digits</b>: {id:0>5} -
                                     <b>date</b>: {create_date:%Y-%m-%d} -
                                     <b>related</b>: {related_id.field} -
-                                    <b>sequence</b>: {sequence_code}
+                                    <b>sequence</b>: {r.sequence_code}
                                 </p>
                             </div>
                             <!-- <div class="col-12 col-lg-6 o_setting_box">
@@ -43,7 +43,7 @@
                                 <field
                                     name="product_template_number_expression"
                                     class="w-100"
-                                    placeholder="{id:0>5} or {sequence_code}"
+                                    placeholder="{id:0>5} or {r.sequence_code}"
                                     readonly="product_template_sequence_number_from_variant"
                                 />
                             </div>
@@ -63,7 +63,7 @@
                                 <field
                                     name="product_product_number_expression"
                                     class="w-100"
-                                    placeholder="{id:0>5} or {sequence_code}"
+                                    placeholder="{id:0>5} or {r.sequence_code}"
                                 />
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">

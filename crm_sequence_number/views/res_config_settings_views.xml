@@ -7,49 +7,43 @@
             <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//app[@name='crm']" position="inside">
-                    <div class="app_settings_block" string="Lead/Opportunity No. string" data-string="Lead/Opportunity No. data">
-                        <!-- <h2>Lead/Opportunity No.</h2> -->
-                        <div class="row mt16 o_settings_container">
-                            <!-- No. Expression -->
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div>
-                                    <label for="crm_lead_number_expression"/>
-                                    <field name="crm_lead_number_expression" class="w-100" placeholder="{sequence_code}"/>
-                                    <div class="text-muted">
-                            <p class="text-muted" style="margin-top: 8px;">
-                                Go to Contact No. to learn about python expressions.
-                                Python expression. Learn more Contact No. 
-                                Python expression. Learn more
-                                <a href="https://www.geeksforgeeks.org/formatted-string-literals-f-strings-python/"
-                                    target="_blank">HERE</a>.<br/>
-                                <b>sequence</b>: <code>{r.sequence_code}</code><br/>
-                                <b>5 digits</b>: <code>{r.id:0&gt;5}</code><br/>
-                                <b>date</b>: <code>{r.create_date:%Y-%m-%d}</code><br/>
-                                <b>related</b>: <code>{r.related_id.field}</code><br/>
-                                <b>conditionals</b>: <code>{'A' if r.active else 'B'}</code>
-                            </p>
-
-
-                                    </div>
-                                </div>
+                    <setting
+                        string="Lead No. Expression"
+                        documentation="https://github.com/loym-com/apps-sequence/blob/18.0/base_sequence_number/readme/CONFIGURE.md"
+                    >
+                        <field name="crm_lead_number_expression" placeholder="{r.sequence_code}" class="w-100"/>
+                    </setting>
+                    <setting
+                        string="Lead No. Sequence"
+                        documentation="https://github.com/loym-com/apps-sequence/blob/18.0/base_sequence_number/readme/CONFIGURE.md"
+                    >
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <field name="crm_lead_number_sequence_option" class="w-100"/>
                             </div>
-                            <!-- Sequence Options -->
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div>
-                                    <label for="crm_lead_number_sequence_option"/>
-                                    <field name="crm_lead_number_sequence_option" class="w-100"/>
-                                </div>
-                                <div invisible="crm_lead_number_sequence_option != 'sequence'">
-                                    <label for="crm_lead_number_sequence_id"/>
-                                    <field name="crm_lead_number_sequence_id" class="w-100"/>
-                                </div>
-                                <div invisible="crm_lead_number_sequence_option != 'field'">
-                                    <label for="crm_lead_number_sequence_field_id"/>
-                                    <field name="crm_lead_number_sequence_field_id" class="w-100" domain="[('model', '=', 'crm.lead')]"/>
+                            <div class="row mt16" invisible="crm_lead_number_sequence_option != 'sequence'">
+                                <field name="crm_lead_number_sequence_id" class="w-100"/>
+                            </div>
+                            <div class="row mt16" invisible="crm_lead_number_sequence_option != 'field'">
+                                <div class="d-inline-flex">
+                                    <field
+                                        name="crm_lead_number_sequence_field_id"
+                                        class="w-100"
+                                        options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                                        domain="[('model', '=', 'crm.lead'), ('ttype', 'in', ['boolean', 'many2one', 'selection'])]"
+                                    />
+                                    <button
+                                        name="crm_lead_action_goto_sequences"
+                                        type="object"
+                                        icon="fa-list"
+                                        invisible="not crm_lead_number_sequence_field_id"
+                                        title="Sequences"
+                                    />
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </setting>
+
                 </xpath>
             </field>
         </record>

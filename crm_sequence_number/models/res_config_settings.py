@@ -32,3 +32,6 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         string="Lead Field",
     )
+
+    def crm_lead_action_goto_sequences(self):
+        return self.env.ref("crm.model_crm_lead").action_goto_sequences()

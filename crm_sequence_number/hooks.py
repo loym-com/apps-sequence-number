@@ -3,6 +3,6 @@ def post_init_hook(arg):
     cr.execute("""
         UPDATE ir_model
         SET number_expression = '{r.sequence_code}'
-        WHERE model = 'res.partner'
+        WHERE model = 'crm.lead'
             AND (number_expression IS NULL OR number_expression = '');
     """)

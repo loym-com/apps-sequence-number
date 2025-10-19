@@ -11,7 +11,7 @@
                         string="Contact No. Expression"
                         documentation="https://github.com/loym-com/apps-sequence/blob/18.0/base_sequence_number/readme/CONFIGURE.md"
                     >
-                        <field name="res_partner_number_expression" placeholder="{sequence_code}" class="w-100"/>
+                        <field name="res_partner_number_expression" placeholder="{r.sequence_code}" class="w-100"/>
                     </setting>
                     <setting
                         string="Contact No. Sequence"
