@@ -46,27 +46,27 @@ class ResConfigSettings(models.TransientModel):
             record.product_template_model = self.env.ref("product.model_product_template")
 
     product_template_model = fields.Many2one(
-        "ir.model", string="Lead Model", compute="_compute_product_template_model", store=True
+        "ir.model", string="Product Template Model", compute="_compute_product_template_model", store=True
     )
     product_template_number_expression = fields.Char(
         related="product_template_model.number_expression",
         readonly=False,
-        string="Lead No.",
+        string="Product Template No.",
     )
     product_template_number_sequence_option = fields.Selection(
         related="product_template_model.number_sequence_option",
         readonly=False,
-        string="Lead Option",
+        string="Product Template Option",
     )
     product_template_number_sequence_id = fields.Many2one(
         related="product_template_model.number_sequence_id",
         readonly=False,
-        string="Lead Sequence",
+        string="Product Template Sequence",
     )
     product_template_number_sequence_field_id = fields.Many2one(
         related="product_template_model.number_sequence_field_id",
         readonly=False,
-        string="Lead Field",
+        string="Product Template Field",
     )
 
     def product_template_action_goto_sequences(self):
