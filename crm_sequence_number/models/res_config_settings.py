@@ -4,7 +4,7 @@ from odoo import api, fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    # @api.depends("company_id")
+    @api.depends("company_id")
     def _compute_crm_lead_model(self):
         for record in self:
             record.crm_lead_model = self.env["ir.model"].sudo().search([("model", "=", "crm.lead")], limit=1)
