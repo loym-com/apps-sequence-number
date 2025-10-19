@@ -9,8 +9,8 @@
         "views/ir_model_views.xml",
     ],
     "depends": [
+        "expression_value_mixin",
         "base_setup",
-        "compute_value_from_expression",
     ],
     "license": "LGPL-3",
     "pre_init_hook": "pre_init_hook",

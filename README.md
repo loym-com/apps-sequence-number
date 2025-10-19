@@ -1,53 +1,39 @@
 Sequences
 =========
 
-**EDIT**
+`expression_value_mixin` has `expression.value.mixin` used by `base_display_name` and `base_sequence_number`.
 
-`display_name` and `project_display` replace all `sequence` modules.
+`base_display_name` is a base module to compute `display_name` with a python expression.
 
-`display_name` has **display_code** (computed), and a mixin to store it.
+`base_sequence_number` is a base module to compute `sequence_number` with a python expression.
 
-`project_display` uses the mixin. Then **display_code_pattern** is visible in ir.model.
+A record number may contain:
 
-**Original**
+- Sequence
+    - Option: Choose sequence based on the value of a field.
+    - Install `sequence_python` for more options on the sequence.
+- Values of the record or related records
+- Anything that python can evaluate
 
-`sequence` and `display_name` are based on `project_sequence` and `project_task_code`.
+Implementations:
 
-- `ir.model` has 2 new fields to store *sequence field* and *display name pattern*.
-- Settings - General Settings - Permissions has two checkboxes to show these fields.
-- These fields enable administrators to set a sequence for each model.
+- `base_sequence_number`: Contact
+- `crm_sequence_number`: Lead/Opportunity
+- `product_sequence_number`: Product, Product Variant
+- `project_sequence_number`: Project, Task
 
-`sequence_project` is also based on `project_sequence` and `project_task_code`.
-It shows how one may implement a sequence for a model:
-
-- The module should depend on `sequence`.
-- Inherit "sequence.code.mixin"
-- Add views to show the sequence_code.
-- Optionally, depend on `display_name`.
-- Use a post_init_hook to set a default sequence and display_name_expression.
-- Use "res.config.settings" to let the user set a custom display_name_expression.
-  Save the pattern to "ir.model" (not "ir.config_parameter").
-
-`sequence` and `display_name` are made with two use cases in mind:
-
-1. A developer may depend on them in a sequence module.
-2. A database admin may configure sequences and display names directly in the UI.
-
-To combine these use cases,
-settings should be stored in `ir.model` (instead of `ìr.config_parameter`).
-
-Sequences seem to be implemented in many OCA modules on a supported version (16-18):
+There are many OCA sequence modules on a supported version (16-18):
 
 1. account_analytic_sequence
 2. account_journal_general_sequence
 3. account_move_name_sequence
-4. account_sequence_option
+4. account_number_sequence_option
 5. base_partner_sequence
 6. base_sequence_default
-7. base_sequence_option
+7. base_number_sequence_option
 8. hr_expense_advance_clearing_sequence
 9. hr_expense_sequence
-10. hr_expense_sequence_option
+10. hr_expense_number_sequence_option
 11. l10n_th_base_sequence
 12. maintenance_equipment_sequence
 13. maintenance_request_sequence
@@ -67,9 +53,6 @@ Sequences seem to be implemented in many OCA modules on a supported version (16-
 27. sequence_reset_period
 28. stock_picking_line_sequence
 
-I want `sequence` and `display_name` to be generic
-so that they can be useful and easy to implement for various sequences.
-[Here I have opened an issue to discuss these things](https://github.com/OCA/server-ux/issues/1058),
-before I make pull requests to the OCA.
+On migrating to 19.0, please consider to rename to `MODULE_sequence_number` and depend on `base_sequence_number`.
 
-BTW: `sequence_choice` is a new module, allowing multiple sequences for a model.
+[Here I have opened an issue to discuss these things](https://github.com/OCA/server-ux/issues/1058).
