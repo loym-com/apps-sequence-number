@@ -21,8 +21,9 @@ class TestProjectTask(common.TransactionCase):
             }
         )
         cls.ir_model = cls.env["ir.model"].search([("model", "=", "project.task")])
-        cls.ir_model.display_name_expression = "[{sequence_number}] {name}"
-        cls.ir_model.number_expression = "{__sequence__}"
+        # cls.ir_model.display_name_expression = "[{r.sequence_number}] {name}"
+        # cls.ir_model.number_expression = "{r.sequence_code}"
+        cls.ir_model.number_sequence_option = "sequence"
         cls.ir_model.number_sequence_id = cls.task_sequence.id
 
     def setUp(self):
@@ -54,7 +55,7 @@ class TestProjectTask(common.TransactionCase):
             }
         )
         result = task.display_name
-        self.assertEqual(result, f"[{sequence_number}] Task Testing Get Name")
+        self.assertEqual(result, f"[{task.sequence_number}] Task Testing Get Name")
 
     def test_name_search(self):
         task = self.env["project.task"].create(

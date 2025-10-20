@@ -1,0 +1,20 @@
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+
+{
+    "name": "Product Sequence of Main Variant",
+    "summary": "",
+    "version": "18.0.1.0.0",
+    "author": "FIQ, Loym",
+    "website": "https://www.loym.com",
+    "license": "AGPL-3",
+    "category": "Product",
+    "depends": [
+        "product_sequence_number",
+    ],
+    "data": [
+        "views/product_template_views.xml",
+        "views/res_config_settings_views.xml",
+    ],
+    "post_init_hook": "post_init_hook",
+}

@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="product.res_config_settings_view_form" />
             <field name="arch" type="xml">
                 <xpath expr="//block[@id='product_general_settings']" position="after">
-                    <block title="Product No.">
+                    <block name="product_sequence_number" title="Product No.">
                         <setting
                             string="Product Variant No. Expression"
                             documentation="https://github.com/loym-com/apps-sequence/blob/18.0/base_sequence_number/readme/CONFIGURE.md"
@@ -79,9 +79,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </setting>
-                        <setting string="Get Product Template No. from Main Variant">
-                            <field name="product_template_sequence_number_from_main_variant"/>
                         </setting>
                     </block>
                 </xpath>

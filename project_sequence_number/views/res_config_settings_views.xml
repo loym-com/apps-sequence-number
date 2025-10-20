@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="project.res_config_settings_view_form" />
             <field name="arch" type="xml">
                 <xpath expr="//app[@name='project']" position="inside">
-                    <block title="Project/Task No.">
+                    <block name="project_sequence_number" title="Project/Task No.">
                         <setting
                             string="Project No. Expression"
                             documentation="https://github.com/loym-com/apps-sequence/blob/18.0/base_sequence_number/readme/CONFIGURE.md"

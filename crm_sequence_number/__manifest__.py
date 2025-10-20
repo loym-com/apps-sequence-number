@@ -4,13 +4,13 @@
 
 {
     "name": "Lead/Opportunity No.",
-    "version": "18.0.4.0.2",
+    "version": "18.0.1.0.0",
     "author": "Loym",
     "website": "https://www.loym.com",
     "license": "LGPL-3",
     "category": "",
     "depends": [
-        "base_sequence_number",
+        "base_mixin_sequence_number",
         "crm",
     ],
     "data": [

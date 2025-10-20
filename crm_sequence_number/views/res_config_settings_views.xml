@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//app[@name='crm']" position="inside">
-                    <block title="Lead/Opportunity No.">
+                    <block name="crm_sequence_number" title="Lead/Opportunity No.">
                         <setting
                             string="Lead No. Expression"
                             documentation="https://github.com/loym-com/apps-sequence/blob/18.0/base_sequence_number/readme/CONFIGURE.md"

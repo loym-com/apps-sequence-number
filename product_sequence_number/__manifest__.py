@@ -4,13 +4,13 @@
 {
     "name": "Product No.",
     "summary": " ",
-    "version": "18.0.4.0.3",
+    "version": "18.0.1.0.0",
     "author": "Cetmix, Loym",
     "website": "https://www.loym.com",
     "license": "LGPL-3",
     "category": "Product",
     "depends": [
-        "base_sequence_number",
+        "base_mixin_sequence_number",
         "product",
     ],
     "data": [

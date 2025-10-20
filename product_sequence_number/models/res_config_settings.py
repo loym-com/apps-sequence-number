@@ -71,10 +71,3 @@ class ResConfigSettings(models.TransientModel):
 
     def product_template_action_goto_sequences(self):
         return self.env.ref("product.model_product_template").action_goto_sequences()
-    
-    # product.template special setting
-
-    product_template_sequence_number_from_main_variant = fields.Boolean(
-        string="Get Product Template No. from Main Variant",
-        config_parameter="product_sequence_number.product_template_sequence_number_from_main_variant"
-    )
