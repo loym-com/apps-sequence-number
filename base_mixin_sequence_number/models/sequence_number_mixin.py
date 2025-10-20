@@ -22,11 +22,11 @@ class UniqueCodeMixin(models.AbstractModel):
     name = fields.Char()
 
     sequence_code = fields.Char(
-        string="Sequence Code",
-        # default="",
+        # string="Sequence Code",
+        string="Sequence No.",
         copy=False,
         store=True,
-        help="Configure in model settings."
+        # help="Configure in model settings."
     )
 
     sequence_number = fields.Char(

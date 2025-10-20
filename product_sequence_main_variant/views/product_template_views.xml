@@ -6,7 +6,12 @@
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
             <field name="type" position="after">
-                <field name="main_variant_id" string="Main Variant" domain="[('product_tmpl_id', '=', id)]"/>
+                <field
+                    name="main_variant_id"
+                    string="Main Variant"
+                    domain="[('product_tmpl_id', '=', id)]"
+                    groups="product.group_product_manager"
+                />
             </field>
         </field>
     </record>

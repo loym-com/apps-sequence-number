@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
         # group="stock.group_stock_manager",
         help="The main variant of the product template. "
              "This is used to determine the unique code for the product template. "
-             "Only STOCK MANAGER can change this value.",
+             "Only PRODUCT MANAGER can change this value.",
     )
     use_main_variant_sequence = fields.Boolean(
         string="Use Main Variant Sequence",
