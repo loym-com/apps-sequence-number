@@ -4,7 +4,7 @@
 {
     "name": "Display Name Mixin",
     "summary": "Choose how to see records",
-    "author": "Loym",
+    "author": "FIQ, Loym",
     "data": [
         "views/ir_model_views.xml",
     ],

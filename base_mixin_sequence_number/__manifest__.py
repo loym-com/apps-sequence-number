@@ -4,7 +4,7 @@
 {
     "name": "Sequence No. Mixin",
     "summary": "",
-    "author": "Loym",
+    "author": "FIQ, Loym",
     "data": [
         "views/ir_model_views.xml",
     ],

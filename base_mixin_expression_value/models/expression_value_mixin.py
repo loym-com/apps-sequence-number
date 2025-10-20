@@ -47,7 +47,9 @@ class ExpressionValueMixin(models.AbstractModel):
 
     def get_value_from_expression(self, expression):
         try:
-            return safe_eval(f"f{repr(expression)}", {"r": self})
+            value = safe_eval(f"f{repr(expression)}", {"r": self})
+            if value in ("False"):
+                return None
         except Exception as e:
             _logger.warning("Error evaluating expression %r for %s(%d): %s", expression, self._name, self.id, e)
 

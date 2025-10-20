@@ -131,8 +131,8 @@ class TestProjectSequence(TransactionCase):
         self.assertEqual(proj2.sequence_number, "23-00011")
         self.assertEqual(proj2.display_name, "23-00011 - two")
 
-    def test_custom_pattern(self):
-        """Display name pattern can be customized."""
+    def test_custom_expression(self):
+        """Display name expression can be customized."""
         model = self.env["ir.model"].sudo().search([("model", "=", "project.project")])
         model.display_name_expression = "{r.name}/{r.sequence_number}"
         proj = self.env["project.project"].create({"name": "one"})

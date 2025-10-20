@@ -1,11 +1,11 @@
 Sequences
 =========
 
-`expression_value_mixin` has `expression.value.mixin` used by `base_display_name` and `base_sequence_number`.
+`base_mixin_expression_value` has `expression.value.mixin` used by `base_mixin_display_name` and `base_mixin_sequence_number`.
 
-`base_display_name` is a base module to compute `display_name` with a python expression.
+`base_mixin_display_name` is a base module to compute `display_name` with a python expression.
 
-`base_sequence_number` is a base module to compute `sequence_number` with a python expression.
+`base_mixin_sequence_number` is a base module to compute `sequence_number` with a python expression.
 
 A record number may contain:
 
@@ -17,8 +17,8 @@ A record number may contain:
 
 Implementations:
 
-- `base_sequence_number`: Contact
 - `crm_sequence_number`: Lead/Opportunity
+- `partner_sequence_number`: Contact
 - `product_sequence_number`: Product, Product Variant
 - `project_sequence_number`: Project, Task
 

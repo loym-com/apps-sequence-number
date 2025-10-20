@@ -23,7 +23,7 @@ class UniqueCodeMixin(models.AbstractModel):
 
     sequence_code = fields.Char(
         string="Sequence Code",
-        default="",
+        # default="",
         copy=False,
         store=True,
         help="Configure in model settings."
@@ -42,7 +42,7 @@ class UniqueCodeMixin(models.AbstractModel):
         """Set sequence_number and name, if sequence_number is not set."""
         vals_list_ok = [vals for vals in vals_list if "sequence_number" in vals]
         vals_list_todo = [vals for vals in vals_list if "sequence_number" not in vals]
-        # Create first, so we can use the record "id" etc. in the pattern
+        # Create first, so we can use the record "id" etc. in the expression
         records_ok = super().create(vals_list_ok)
         records_todo = super().create(vals_list_todo)
         records_todo.set_sequence_code_sequence_number_and_name()

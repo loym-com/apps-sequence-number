@@ -4,7 +4,7 @@
 {
     "name": "Expression Value Mixin",
     "summary": "expr in ir.model / ir.config_parameter",
-    "author": "Loym",
+    "author": "FIQ, Loym",
     "data": [
     ],
     "depends": [

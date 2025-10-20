@@ -26,12 +26,12 @@ class TestDisplayName(TransactionCase):
         name = "Test Report"
         self.assertEqual(self.report.display_name, f"{self.report.id:0>5} - {name}")
 
-        # Pattern with dotted field, number format and date format
-        pattern = "{create_uid.id:0>3}/{create_date:%Y-%m-%d} - {name}"
-        self.report_model.display_name_expression = pattern
+        # Expression with dotted field, number format and date format
+        expr = "{create_uid.id:0>3}/{create_date:%Y-%m-%d} - {name}"
+        self.report_model.display_name_expression = expr
         self.report._invalidate_cache(["display_name"])
         self.assertEqual(
-            self.report.display_name, pattern.format(
+            self.report.display_name, expr.format(
                 create_uid=self.report.create_uid,
                 create_date=self.report.create_date,
                 name=self.report.name,
