@@ -56,3 +56,4 @@ There are many OCA sequence modules on a supported version (16-18):
 On migrating to 19.0, please consider to rename to `MODULE_sequence_number` and depend on `base_sequence_number`.
 
 [Here I have opened an issue to discuss these things](https://github.com/OCA/server-ux/issues/1058).
+
