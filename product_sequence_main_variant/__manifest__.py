@@ -2,7 +2,7 @@
 
 
 {
-    "name": "Product Sequence of Main Variant",
+    "name": "Product Template No. from Main Variant",
     "summary": "",
     "version": "18.0.1.0.0",
     "author": "FIQ, Loym",

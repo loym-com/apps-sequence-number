@@ -10,13 +10,16 @@
     "license": "LGPL-3",
     "category": "",
     "depends": [
+        "base_mixin_display_name",
         "base_mixin_sequence_number",
         "crm",
     ],
     "data": [
         "data/ir_actions_server_data.xml",
+        "data/ir_sequence.xml",
         "views/crm_lead_views.xml",
         "views/res_config_settings_views.xml",
     ],
     "post_init_hook": "post_init_hook",
+    "uninstall_hook": "pre_uninstall_hook",
 }
