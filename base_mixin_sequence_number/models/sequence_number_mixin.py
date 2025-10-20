@@ -119,6 +119,7 @@ class UniqueCodeMixin(models.AbstractModel):
 
         if "name" not in self._fields:
             return
-        
-        if self.sequence_number and not self.name:
-            self.name = self.sequence_number
+
+        for record in self:
+            if record.sequence_number and not record.name:
+                record.name = record.sequence_number
