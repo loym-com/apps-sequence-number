@@ -4,7 +4,7 @@
 {
     "name": "Project/Task No.",
     "summary": "",
-    "author": "Loym",
+    "author": "FIQ, Loym",
     "data": [
         "data/ir_actions_server_data.xml",
         "data/ir_sequence.xml",
@@ -18,7 +18,7 @@
         "project",
     ],
     "excludes": [""],
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "post_init_hook": "post_init_hook",
     "uninstall_hook": "pre_uninstall_hook",
     "version": "18.0.1.0.0",

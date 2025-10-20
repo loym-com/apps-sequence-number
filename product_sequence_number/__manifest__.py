@@ -1,13 +1,11 @@
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-
-
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Product No.",
     "summary": " ",
     "version": "18.0.1.0.0",
-    "author": "Cetmix, Loym",
+    "author": "FIQ, Cetmix, Loym",
     "website": "https://www.loym.com",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "category": "Product",
     "depends": [
         "base_mixin_sequence_number",

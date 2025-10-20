@@ -10,7 +10,6 @@
     ],
     "depends": [
         "base_mixin_expression_value",
-        # "base_setup",
     ],
     "license": "AGPL-3",
     "pre_init_hook": "pre_init_hook",
