@@ -46,12 +46,13 @@ class ExpressionValueMixin(models.AbstractModel):
             return param or ""
 
     def get_value_from_expression(self, expression):
-        try:
-            value = safe_eval(f"f{repr(expression)}", {"r": self})
-            if value in ("False"):
-                return None
-        except Exception as e:
-            _logger.warning("Error evaluating expression %r for %s(%d): %s", expression, self._name, self.id, e)
+        for record in self:
+            try:
+                value = safe_eval(f"f{repr(expression)}", {"r": record})
+                if value in ("False"):
+                    return None
+            except Exception as e:
+                _logger.warning("Error evaluating expression %r for %s(%d): %s", expression, record._name, record.id, e)
 
     @api.model
     def get_field_paths_from_expression(self, expression):
