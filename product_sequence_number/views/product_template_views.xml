@@ -36,7 +36,7 @@
         <!-- <field name="inherit_id" ref="product.product_template_only_form_view" /> -->
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
-            <!-- <label for="name" position="replace"/> -->
+            <label for="name" position="replace"/>
             <h1 position="before">
                 <div class="d-flex h3">
                     <!-- <label for="sequence_number" string="No." /> -->

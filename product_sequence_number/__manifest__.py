@@ -2,7 +2,7 @@
 {
     "name": "Product No.",
     "summary": " ",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "author": "FIQ, Cetmix, Loym",
     "website": "https://www.loym.com",
     "license": "AGPL-3",
