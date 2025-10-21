@@ -51,6 +51,7 @@ class ExpressionValueMixin(models.AbstractModel):
                 value = safe_eval(f"f{repr(expression)}", {"r": record})
                 if value in ("False"):
                     return None
+                return value
             except Exception as e:
                 _logger.warning("Error evaluating expression %r for %s(%d): %s", expression, record._name, record.id, e)
 

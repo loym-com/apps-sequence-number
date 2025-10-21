@@ -19,8 +19,6 @@ class UniqueCodeMixin(models.AbstractModel):
         ),
     ]
 
-    name = fields.Char()
-
     sequence_code = fields.Char(
         string="Sequence Code",
         copy=False,
