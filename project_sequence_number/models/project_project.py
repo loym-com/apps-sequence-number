@@ -28,4 +28,6 @@ class ProjectProject(models.Model):
         for rec in self:
             if not rec.account_id:
                 continue
-            rec.account_id.name = rec.display_name
+            display_name = rec.display_name
+            if display_name:
+                rec.account_id.name = display_name
