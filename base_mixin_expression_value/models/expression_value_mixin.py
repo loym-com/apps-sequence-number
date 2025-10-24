@@ -93,12 +93,13 @@ class ExpressionValueMixin(models.AbstractModel):
     def get_valid_field_paths(self, field_paths):
         """
         Return only valid field paths from the input list.
+        Return as tuple, required by @api.depends().
         """
         model = self.env[self._name]
-        valid_paths = [
+        valid_paths = (
             path for path in field_paths
             if self._is_field_path_valid(model, path.split('.'))
-        ]
+        )
         return valid_paths
 
     def raise_error_if_invalid_field_paths(self, field_paths):
