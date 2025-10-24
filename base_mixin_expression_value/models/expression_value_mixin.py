@@ -81,32 +81,25 @@ class ExpressionValueMixin(models.AbstractModel):
     @api.model
     def check_if_all_field_paths_are_valid(self, field_paths):
         """
-        Check if all field paths exist on the model.
-
-        field_paths: iterable of strings, e.g. ["name", "parent_id.date"]
-        Returns: True if all valid, False otherwise
+        Return True if all paths exist on the model, False otherwise.
         """
-        def is_valid_path(model, path_parts):
-            """Recursive helper to check field path validity"""
-            if not path_parts:
-                return True
-            field_name = path_parts[0]
-            field = model._fields.get(field_name)
-            if not field:
-                return False
-            # Follow relational fields
-            if field.type in ('many2one', 'one2many', 'many2many'):
-                rel_model = self.env[field.comodel_name]
-                return is_valid_path(rel_model, path_parts[1:])
-            elif len(path_parts) > 1:
-                # Non-relational field cannot have further parts
-                return False
-            return True
-
+        model = self.env[self._name]
         for path in field_paths:
-            if not is_valid_path(self.env[self._name], path.split('.')):
+            if not self._is_field_path_valid(model, path.split('.')):
                 return False
         return True
+
+    @api.model
+    def get_valid_field_paths(self, field_paths):
+        """
+        Return only valid field paths from the input list.
+        """
+        model = self.env[self._name]
+        valid_paths = [
+            path for path in field_paths
+            if self._is_field_path_valid(model, path.split('.'))
+        ]
+        return valid_paths
 
     def raise_error_if_invalid_field_paths(self, field_paths):
         valid = self.check_if_all_field_paths_are_valid(field_paths)
@@ -114,3 +107,23 @@ class ExpressionValueMixin(models.AbstractModel):
             raise ValidationError(
                 f"Not all field_paths are valid: {field_paths}"
             )
+
+    @api.model
+    def _is_field_path_valid(self, model, path_parts):
+        """
+        Recursive helper to check if a dotted field path exists on a model.
+        """
+        if not path_parts:
+            return True
+        field_name = path_parts[0]
+        field = model._fields.get(field_name)
+        if not field:
+            return False
+        # Follow relational fields
+        if field.type in ('many2one', 'one2many', 'many2many'):
+            rel_model = self.env[field.comodel_name]
+            return self._is_field_path_valid(rel_model, path_parts[1:])
+        elif len(path_parts) > 1:
+            # Non-relational field cannot have further parts
+            return False
+        return True
