@@ -9,8 +9,8 @@ from odoo.tools.translate import _
 
 class UniqueCodeMixin(models.AbstractModel):
     _name = "sequence.number.mixin"
+    _description = "Sequence No. Mixin"
     _inherit = "expression.value.mixin"
-    _description = "Sequence No Mixin"
     _sql_constraints = [
         (
             "unique_sequence_number",

@@ -10,6 +10,7 @@ _logger = logging.getLogger(__name__)
 class DisplayNameMixin(models.AbstractModel):
     _name = "display.name.mixin"
     _description = "display.name.mixin"
+    _inherit = "expression.value.mixin"
 
     # display_name
 
