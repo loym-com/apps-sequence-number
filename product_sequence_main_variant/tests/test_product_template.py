@@ -7,7 +7,7 @@ class TestProductTemplate(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.product_product_model = cls.env["ir.model"].search([("model", "=", "product.product")])
-        cls.product_product_model.number_expression = "P{r.id:0>5}"
+        cls.product_product_model.sequence_expression = "P{r.id:0>5}"
 
     @classmethod
     def setUpClass(cls):

@@ -6,7 +6,6 @@
     "summary": "",
     "author": "FIQ, Loym",
     "data": [
-        "views/ir_model_views.xml",
     ],
     "depends": [
         "base_mixin_expression_value",

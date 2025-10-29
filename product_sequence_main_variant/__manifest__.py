@@ -16,5 +16,4 @@
         "views/product_template_views.xml",
         "views/res_config_settings_views.xml",
     ],
-    "post_init_hook": "post_init_hook",
 }

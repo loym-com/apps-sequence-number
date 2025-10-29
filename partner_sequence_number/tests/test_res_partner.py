@@ -47,7 +47,7 @@ class TestResPartner(TransactionCase):
         record.sequence_number = ""
         self.assertFalse(record.sequence_number)
         self.assertFalse(record.sequence_code)
-        record.set_sequence_code_sequence_number_and_name()
+        record.set_sequence_field_and_name()
         self.assertEqual(record.sequence_number, "partner-00002")
 
     def test_02_field_boolean_with_sequence_count(self):
@@ -83,5 +83,5 @@ class TestResPartner(TransactionCase):
         self.model.number_sequence_option = "sequence"
         record = self.env[self.model.model].create({"name": "Test Partner"})
         self.assertEqual(record.sequence_number, "partner-00004")
-        record.set_sequence_code_sequence_number_and_name()
+        record.set_sequence_field_and_name()
         self.assertEqual(record.sequence_number, "partner-00004")

@@ -2,7 +2,7 @@
 <odoo noupdate="1">
     <record id="lead_sequence" model="ir.sequence">
         <field name="name">Lead sequence</field>
-        <field name="code"></field>
+        <field name="code">crm.lead</field>
         <field name="prefix">L</field>
         <field name="number_next_actual">100000</field>
         <field name="padding">6</field>

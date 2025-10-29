@@ -10,7 +10,6 @@
         "data/ir_sequence.xml",
         "views/project_project_views.xml",
         "views/project_task_views.xml",
-        "views/res_config_settings_views.xml",
     ],
     "depends": [
         "base_mixin_display_name",

@@ -31,7 +31,7 @@ class TestProjectSequence(TransactionCase):
         )
         cls.ir_model = cls.env["ir.model"].search([("model", "=", "project.project")])
         # cls.ir_model.display_name_expression = "{r.sequence_number} - {name}"
-        # cls.ir_model.number_expression = "{r.sequence_code}"
+        # cls.ir_model.sequence_expression = "{r.sequence_code}"
         cls.ir_model.number_sequence_option = "sequence"
         cls.ir_model.number_sequence_id = cls.prj_seq.id
         default_plan_id = cls.env["account.analytic.plan"].search([], limit=1)

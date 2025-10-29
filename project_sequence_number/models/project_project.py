@@ -4,6 +4,14 @@ from odoo import api, fields, models
 class ProjectProject(models.Model):
     _name = "project.project"
     _inherit = ["project.project", "sequence.number.mixin", "display.name.mixin"]
+    _sequence_field = "sequence_code" # Same as in OCA project_sequence
+    _ir_sequence_code = "project.sequence"
+
+    sequence_code = fields.Char(
+        string="No.",
+        copy=False,
+        readonly=True,
+    )
 
     name = fields.Char(
         # We actually require it with the SQL constraint, but it is disabled

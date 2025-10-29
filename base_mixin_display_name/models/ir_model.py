@@ -18,7 +18,7 @@ class IrModel(models.Model):
     )
 
     display_name_expression = fields.Char(
-        string="Display Name",
+        string="Display Name Exp.",
         help=(
             "Example: '{parent_id.display_code}/{display_code} - {name}'\n"
             "Use python string format syntax.\n\n"
