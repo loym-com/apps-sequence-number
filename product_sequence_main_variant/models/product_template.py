@@ -30,7 +30,7 @@ class ProductTemplate(models.Model):
     @api.depends()
     def _compute_use_main_variant_sequence(self):
         is_enabled = self.env['ir.config_parameter'].sudo().get_param(
-            'product_main_variant.product_template_sequence_number_from_main_variant', 
+            'product_sequence_main_variant.product_template_sequence_number_from_main_variant', 
             default=False
         )
         self.use_main_variant_sequence = is_enabled

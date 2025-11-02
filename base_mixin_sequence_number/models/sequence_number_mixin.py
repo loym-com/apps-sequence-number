@@ -13,14 +13,9 @@ class SequenceNumberMixin(models.AbstractModel):
 
     # Required settings by the model inheriting the mixin
     _sequence_field = "sequence_number"
-    _ir_sequence_code = None  # will default to model _name
+    _ir_sequence_code = None
 
-    @property
-    def sequence_code(self):
-        # If subclass didn't set _ir_sequence_code, use its _name
-        return self._ir_sequence_code or self._name
-
-    # _sql_constraints = (_sequence_field + company_id) or (_sequence_field)
+    # _sql_constraints = (_sequence_field and company_id) or (_sequence_field)
     @classmethod
     def __init_subclass__(cls):
         super().__init_subclass__()
@@ -80,7 +75,7 @@ class SequenceNumberMixin(models.AbstractModel):
     def _set_sequence_field(self):
         records = self.filtered(lambda r: not r[r._sequence_field])
         for rec in records:
-            rec[rec._sequence_field] = self.env['ir.sequence'].next_by_code(self._ir_sequence_code)
+            rec[self._sequence_field] = self.env['ir.sequence'].next_by_code(self._ir_sequence_code)
 
     def _set_name_if_empty(self):
         """Set name = sequence_number if removing name or no existing name

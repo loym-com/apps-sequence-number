@@ -9,6 +9,14 @@ class ProjectTask(models.Model):
     _name = "project.task"
     _inherit = ["project.task", "sequence.number.mixin", "display.name.mixin"]
     _sequence_field = "code" # Same as in OCA project_task_code
+    _ir_sequence_code = "project.task"
+    _sql_constraints = [
+        (
+            "unique_sequence",
+            "UNIQUE(code)",
+            "code must be unique!",
+        ),
+    ]
 
     @property
     def SELF_WRITABLE_FIELDS(self):

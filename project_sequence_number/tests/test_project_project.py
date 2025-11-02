@@ -19,7 +19,12 @@ class TestProjectSequence(TransactionCase):
             "manager",
             "project.group_project_manager,analytic.group_analytic_accounting",
         )
-        cls.prj_seq = cls.env["ir.sequence"].create(
+        cls.prj_seq = cls.env['ir.sequence'].search(
+            [('code', '=', "project.sequence"), '|', ('company_id', '=', cls.env.company.id), ('company_id', '=', False)],
+            order='company_id desc',  # company-specific first, then global
+            limit=1
+        )
+        cls.prj_seq.write(
             {
                 "name": "Project sequence",
                 "code": "project.sequence",
@@ -29,11 +34,6 @@ class TestProjectSequence(TransactionCase):
                 "company_id": False,
             }
         )
-        cls.ir_model = cls.env["ir.model"].search([("model", "=", "project.project")])
-        # cls.ir_model.display_name_expression = "{r.sequence_number} - {name}"
-        # cls.ir_model.sequence_expression = "{r.sequence_code}"
-        cls.ir_model.number_sequence_option = "sequence"
-        cls.ir_model.number_sequence_id = cls.prj_seq.id
         default_plan_id = cls.env["account.analytic.plan"].search([], limit=1)
         cls.analytic_account = cls.env["account.analytic.account"].create(
             {
@@ -56,11 +56,11 @@ class TestProjectSequence(TransactionCase):
         """Sequence is applied only after project creation."""
         prj_f = Form(self.env["project.project"])
         self.assertFalse(prj_f.name)
-        self.assertFalse(prj_f.sequence_number)
+        self.assertFalse(prj_f.sequence_code)
         proj = prj_f.save()
-        self.assertTrue(proj.sequence_number)
-        self.assertEqual(proj.name, proj.sequence_number)
-        self.assertEqual(proj.sequence_number, "23-00011")
+        self.assertTrue(proj.sequence_code)
+        self.assertEqual(proj.name, proj.sequence_code)
+        self.assertEqual(proj.sequence_code, "23-00011")
         self.assertEqual(proj.display_name, "23-00011")
 
     def test_analytic_account_after_creation_no_name(self):
@@ -68,7 +68,7 @@ class TestProjectSequence(TransactionCase):
         proj = self.env["project.project"].create(
             {"account_id": self.analytic_account.id}
         )
-        self.assertEqual(proj.sequence_number, "23-00011")
+        self.assertEqual(proj.sequence_code, "23-00011")
         self.assertEqual(proj.name, "23-00011")
         self.assertEqual(proj.display_name, "23-00011")
         self.assertEqual(proj.account_id.name, "23-00011")
@@ -78,7 +78,7 @@ class TestProjectSequence(TransactionCase):
         proj = self.env["project.project"].create(
             {"name": "whatever", "account_id": self.analytic_account.id}
         )
-        self.assertEqual(proj.sequence_number, "23-00011")
+        self.assertEqual(proj.sequence_code, "23-00011")
         self.assertEqual(proj.name, "whatever")
         self.assertEqual(proj.display_name, "23-00011 - whatever")
         self.assertEqual(proj.account_id.name, "23-00011 - whatever")
@@ -90,30 +90,30 @@ class TestProjectSequence(TransactionCase):
             {"name": "whatever", "account_id": self.analytic_account.id}
         )
         self.assertEqual(proj.name, "whatever")
-        self.assertEqual(proj.sequence_number, "23-00011")
+        self.assertEqual(proj.sequence_code, "23-00011")
         self.assertEqual(proj.display_name, "23-00011 - whatever")
         self.assertEqual(proj.account_id.name, "23-00011 - whatever")
         with Form(proj) as prj_f:
             prj_f.name = False
         self.assertEqual(proj.name, "23-00011")
-        self.assertEqual(proj.sequence_number, "23-00011")
+        self.assertEqual(proj.sequence_code, "23-00011")
         self.assertEqual(proj.display_name, "23-00011")
         self.assertEqual(proj.account_id.name, "23-00011")
 
     @users("manager")
-    def test_sequence_numbert_copied_to_another_project(self):
+    def test_sequence_codet_copied_to_another_project(self):
         """Sequence is not duplicated to another project."""
         proj1 = self.env["project.project"].create({"name": "whatever"})
         proj2 = proj1.copy()
-        self.assertEqual(proj1.sequence_number, "23-00011")
-        self.assertEqual(proj2.sequence_number, "23-00012")
+        self.assertEqual(proj1.sequence_code, "23-00011")
+        self.assertEqual(proj2.sequence_code, "23-00012")
 
     @users("manager")
     @mute_logger("odoo.sql_db")
     def test_sequence_unique(self):
         """Sequence cannot have duplicates."""
         proj1 = self.env["project.project"].create({"name": "one"})
-        self.assertEqual(proj1.sequence_number, "23-00011")
+        self.assertEqual(proj1.sequence_code, "23-00011")
         self.prj_seq._get_current_sequence().number_next = 11
         with self.assertRaises(IntegrityError), self.env.cr.savepoint():
             proj1 = self.env["project.project"].create({"name": "two"})
@@ -122,30 +122,30 @@ class TestProjectSequence(TransactionCase):
     def test_project_without_sequence(self):
         """Preexisting projects had no sequence, and they should display fine."""
         proj1 = self.env["project.project"].create(
-            {"name": "one", "sequence_number": False}
+            {"name": "one", "sequence_code": False}
         )
         self.assertEqual(proj1.display_name, "one")
-        self.assertFalse(proj1.sequence_number)
+        self.assertFalse(proj1.sequence_code)
         # Make sure that the sequence is not increased
         proj2 = self.env["project.project"].create({"name": "two"})
-        self.assertEqual(proj2.sequence_number, "23-00011")
+        self.assertEqual(proj2.sequence_code, "23-00011")
         self.assertEqual(proj2.display_name, "23-00011 - two")
 
     def test_custom_expression(self):
         """Display name expression can be customized."""
         model = self.env["ir.model"].sudo().search([("model", "=", "project.project")])
-        model.display_name_expression = "{r.name}/{r.sequence_number}"
+        model.display_name_expression = "{r.name}/{r.sequence_code}"
         proj = self.env["project.project"].create({"name": "one"})
         self.assertEqual(proj.display_name, "one/23-00011")
-        self.assertEqual(proj.sequence_number, "23-00011")
+        self.assertEqual(proj.sequence_code, "23-00011")
         model.display_name_expression = "{r.name}"
         proj = self.env["project.project"].create({"name": "two"})
         self.assertEqual(proj.display_name, "two")
-        self.assertEqual(proj.sequence_number, "23-00012")
-        model.display_name_expression = "{r.sequence_number}"
+        self.assertEqual(proj.sequence_code, "23-00012")
+        model.display_name_expression = "{r.sequence_code}"
         proj = self.env["project.project"].create({"name": "three"})
         self.assertEqual(proj.display_name, "23-00013")
-        self.assertEqual(proj.sequence_number, "23-00013")
+        self.assertEqual(proj.sequence_code, "23-00013")
 
     def test_sync_analytic_account_name(self):
         """Set analytic account name equal to project's display name."""
@@ -174,11 +174,11 @@ class TestProjectSequence(TransactionCase):
     def test_name_search(self):
         """Allow searching by sequence code by default."""
         proj1 = self.env["project.project"].create({"name": "one"})
-        self.assertEqual(proj1.sequence_number, "23-00011")
+        self.assertEqual(proj1.sequence_code, "23-00011")
         proj2 = self.env["project.project"].create({"name": "two"})
-        self.assertEqual(proj2.sequence_number, "23-00012")
+        self.assertEqual(proj2.sequence_code, "23-00012")
         proj3 = self.env["project.project"].create({"name": "three"})
-        self.assertEqual(proj3.sequence_number, "23-00013")
+        self.assertEqual(proj3.sequence_code, "23-00013")
 
         # Search by name
         results = self.env["project.project"].name_search("two")

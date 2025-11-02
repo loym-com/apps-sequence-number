@@ -3,20 +3,9 @@ from odoo.tests.common import TransactionCase
 
 class TestProductTemplate(TransactionCase):
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.product_product_model = cls.env["ir.model"].search([("model", "=", "product.product")])
-        cls.product_product_model.sequence_expression = "P{r.id:0>5}"
-
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.product_product_model = cls.env["ir.model"].search([("model", "=", "product.product")])
-
     def test_product_template_param_false(self):
         template = self.env["product.template"].create({"name": "Test Template"})
-        self.assertFalse(template.sequence_number)
+        self.assertEqual(template.sequence_number, "1")
     
     def test_product_template_param_true(self):
         """Tests the product template's unique code sync with variants.
@@ -32,7 +21,7 @@ class TestProductTemplate(TransactionCase):
         """
 
         self.env["ir.config_parameter"].sudo().set_param(
-            "product_main_variant.product_template_sequence_number_from_main_variant", "True"
+            "product_sequence_main_variant.product_template_sequence_number_from_main_variant", "True"
         )
 
         # Create a product template

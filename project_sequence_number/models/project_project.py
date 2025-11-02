@@ -6,6 +6,13 @@ class ProjectProject(models.Model):
     _inherit = ["project.project", "sequence.number.mixin", "display.name.mixin"]
     _sequence_field = "sequence_code" # Same as in OCA project_sequence
     _ir_sequence_code = "project.sequence"
+    _sql_constraints = [
+        (
+            "unique_sequence",
+            "UNIQUE(sequence_code)",
+            "sequence_code must be unique!",
+        ),
+    ]
 
     sequence_code = fields.Char(
         string="No.",
