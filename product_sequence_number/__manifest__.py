@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "category": "Product",
     "depends": [
-        "base_mixin_display_name",
+        "base_display_name",
         "base_mixin_sequence_number",
         "product",
     ],

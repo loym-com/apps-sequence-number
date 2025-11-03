@@ -10,7 +10,7 @@
     "license": "LGPL-3",
     "category": "",
     "depends": [
-        "base_mixin_display_name",
+        "base_display_name",
         "base_mixin_sequence_number",
         "crm",
     ],

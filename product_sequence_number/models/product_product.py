@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class ProductProduct(models.Model):
     _name = "product.product"
-    _inherit = ["product.product", "sequence.number.mixin", "display.name.mixin"]
+    _inherit = ["product.product", "sequence.number.mixin", "expression.value.mixin"]
     _sequence_field = "sequence_number"
     _ir_sequence_code = "product.product"
     _sql_constraints = [

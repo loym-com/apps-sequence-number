@@ -7,7 +7,7 @@ PROJECT_TASK_WRITABLE_FIELDS = {
 
 class ProjectTask(models.Model):
     _name = "project.task"
-    _inherit = ["project.task", "sequence.number.mixin", "display.name.mixin"]
+    _inherit = ["project.task", "sequence.number.mixin", "expression.value.mixin"]
     _sequence_field = "code" # Same as in OCA project_task_code
     _ir_sequence_code = "project.task"
     _sql_constraints = [

@@ -11,7 +11,7 @@
         "views/res_partner_views.xml",
     ],
     "depends": [
-        "base_mixin_display_name",
+        "base_display_name",
         "base_mixin_sequence_number",
         # "base_setup",
     ],

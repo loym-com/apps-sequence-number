@@ -1,9 +1,9 @@
 Sequences
 =========
 
-`base_mixin_expression_value` has `expression.value.mixin` used by `base_mixin_display_name` and `base_mixin_sequence_number`.
+`base_mixin_expression_value` has `expression.value.mixin` used by `base_display_name`.
 
-`base_mixin_display_name` is a base module to compute `display_name` with a python expression.
+`base_display_name` is a base module to compute `display_name` with a python expression.
 
 `base_mixin_sequence_number` is a base module to compute `sequence_number` with a python expression.
 

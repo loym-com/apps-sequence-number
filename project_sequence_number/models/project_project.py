@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class ProjectProject(models.Model):
     _name = "project.project"
-    _inherit = ["project.project", "sequence.number.mixin", "display.name.mixin"]
+    _inherit = ["project.project", "sequence.number.mixin", "expression.value.mixin"]
     _sequence_field = "sequence_code" # Same as in OCA project_sequence
     _ir_sequence_code = "project.sequence"
     _sql_constraints = [
