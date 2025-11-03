@@ -8,8 +8,8 @@ _logger = logging.getLogger(__name__)
 
 
 class DisplayNameMixin(models.AbstractModel):
-    _name = "display.name.mixin"
-    _description = "display.name.mixin"
+    # _name = "display.name.mixin"
+    # _description = "display.name.mixin"
     _inherit = "expression.value.mixin"
 
     # display_name
@@ -33,5 +33,5 @@ class DisplayNameMixin(models.AbstractModel):
         super()._compute_display_name()
         expression = self.get_expression_from_source("ir.model", "display_name_expression")
         if expression:
-            # TODO: Find out if safe_eval slows down the performance
-            self.display_name = self.get_value_from_expression(expression)
+            for record in self:
+                record.display_name = record.get_value_from_expression(expression)

@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class ProjectProject(models.Model):
     _name = "project.project"
-    _inherit = ["project.project", "sequence.number.mixin", "display.name.mixin"]
+    _inherit = ["project.project", "sequence.number.mixin", "expression.value.mixin"]
 
     name = fields.Char(
         # We actually require it with the SQL constraint, but it is disabled

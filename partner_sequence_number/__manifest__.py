@@ -12,7 +12,7 @@
     ],
     "depends": [
         "base_mixin_sequence_number",
-        "base_setup",
+        "base_setup", # contacts_setting_container
     ],
     "license": "AGPL-3",
     "post_init_hook": "post_init_hook",
