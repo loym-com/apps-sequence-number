@@ -4,7 +4,7 @@
 {
     "name": "Product Template No. from Main Variant",
     "summary": "",
-    "version": "18.0.2.0.1",
+    "version": "18.0.2.0.2",
     "author": "FIQ, Loym, Cetmix",
     "website": "https://www.loym.com",
     "license": "AGPL-3",

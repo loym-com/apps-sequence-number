@@ -23,10 +23,11 @@ class ExpressionValueMixin(models.AbstractModel):
         expression = self.get_expression_from_source(source, lookup)
         return self.get_value_from_expression(expression)
     
-    def get_field_paths_from_source(self, source, lookup):
+    def get_valid_field_paths_from_source(self, source, lookup):
         expression = self.get_expression_from_source(source, lookup)
-        return self.get_field_paths_from_expression(expression)
-    
+        field_paths = self.get_field_paths_from_expression(expression)
+        return self.get_valid_field_paths(field_paths)
+
     def raise_error_if_invalid_field_paths_from_source(self, source, lookup):
         expression = self.get_expression_from_source(source, lookup)
         field_paths = self.get_field_paths_from_expression(expression)

@@ -13,7 +13,7 @@ class ExpressionValueMixin(models.AbstractModel):
     @api.model
     def _search_display_name(self, operator, value):
         # self._rec_names_search is readonly, so we need to work with search_fnames.
-        search_fnames = self.get_field_paths_from_source("ir.model", "display_name_expression")
+        search_fnames = self.get_valid_field_paths_from_source("ir.model", "display_name_expression")
         if not search_fnames:
             return super()._search_display_name(operator, value)
 
@@ -25,7 +25,7 @@ class ExpressionValueMixin(models.AbstractModel):
         aggregator = expression.AND if operator in expression.NEGATIVE_TERM_OPERATORS else expression.OR
         return aggregator([[(field_name, operator, value)] for field_name in search_fnames])
 
-    @api.depends(lambda self: self.get_field_paths_from_source("ir.model", "display_name_expression"))
+    @api.depends(lambda self: self.get_valid_field_paths_from_source("ir.model", "display_name_expression"))
     def _compute_display_name(self):
         """
         If display_name is stored, restart Odoo after changing display_name_expression.

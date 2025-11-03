@@ -28,6 +28,6 @@ class ResPartner(models.Model):
     def _search_display_name(self, operator, value):
         return ExpressionValueMixin._search_display_name(self, operator, value)
 
-    @api.depends(lambda self: self.get_field_paths_from_source("ir.model", "display_name_expression"))
+    @api.depends(lambda self: self.get_valid_field_paths_from_source("ir.model", "display_name_expression"))
     def _compute_display_name(self):
         return ExpressionValueMixin._compute_display_name(self)

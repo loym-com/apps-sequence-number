@@ -1,5 +1,5 @@
 def migrate(cr, version):
-    if version < "18.0.2.0.1":
+    if version < "18.0.2.0.2":
         cr.execute("""
             ALTER TABLE project_project
             ADD COLUMN IF NOT EXISTS sequence_sequence varchar,
