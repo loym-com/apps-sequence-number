@@ -57,3 +57,4 @@ On migrating to 19.0, please consider to rename to `MODULE_sequence_number` and 
 
 [Here I have opened an issue to discuss these things](https://github.com/OCA/server-ux/issues/1058).
 
+
