@@ -3,7 +3,7 @@ def pre_init_hook(arg):
     try:
         cr.execute("""
             ALTER TABLE ir_model
-            ADD COLUMN display_name_expression VARCHAR DEFAULT '';
+            ADD COLUMN IF NOT EXISTS display_name_expression VARCHAR DEFAULT '';
         """)
     except Exception:
         pass
