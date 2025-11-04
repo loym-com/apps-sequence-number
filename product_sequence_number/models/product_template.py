@@ -6,13 +6,11 @@ class ProductTemplate(models.Model):
     _inherit = ["product.template", "sequence.number.mixin", "expression.value.mixin"]
     _sequence_field = "sequence_number"
     _ir_sequence_code = "product.template"
-    _sql_constraints = [
-        (
-            "unique_sequence",
-            "UNIQUE(sequence_number)",
-            "sequence_number must be unique!",
-        ),
-    ]
+
+    _unique_sequence = models.Constraint(
+        'UNIQUE(sequence_number)',
+        'sequence_number must be unique!'
+    )
 
     sequence_number = fields.Char(
         string="No.",

@@ -7,26 +7,19 @@ _logger = logging.getLogger(__name__)
 
 class TestResPartner(TransactionCase):
 
-    @classmethod
-    def _get_field(cls, model_id, field_name):
-        return cls.env["ir.model.fields"].search(
+    def _get_field(self, model_id, field_name):
+        return self.env["ir.model.fields"].search(
             [("model_id", "=", model_id), ("name", "=", field_name)]
         ).ensure_one()
 
-    @classmethod
-    def setUpClass(cls):
-        """
-        setUp is used instead of seUpClass,
-        because the sequence must be reset to 1,
-        otherwie the tests will fail.
-        """
-        super().setUpClass()
-        cls.sequence = cls.env['ir.sequence'].search(
-            [('code', '=', "res.partner"), '|', ('company_id', '=', cls.env.company.id), ('company_id', '=', False)],
+    def setUp(self):
+        super().setUp()
+        self.sequence = self.env['ir.sequence'].search(
+            [('code', '=', "res.partner"), '|', ('company_id', '=', self.env.company.id), ('company_id', '=', False)],
             order='company_id desc',  # company-specific first, then global
             limit=1
         )
-        cls.sequence.write(
+        self.sequence.write(
             {
                 "prefix": "partner-",
                 "padding": 5,
@@ -34,7 +27,7 @@ class TestResPartner(TransactionCase):
             }
         )
 
-    def test_01_secuence_with_reset(self):
+    def test_secuence_with_reset(self):
         record = self.env["res.partner"].create({"name": "Test Partner"})
         self.assertEqual(record.sequence_number, "partner-00001")
         record.sequence_number = ""
@@ -42,13 +35,13 @@ class TestResPartner(TransactionCase):
         record.set_sequence_field_and_name()
         self.assertEqual(record.sequence_number, "partner-00002")
 
-    def test_05_sequence_number_also_in_name_if_empty(self):
+    def test_sequence_number_also_in_name_if_empty(self):
         # Contact name is mandatory except when type == "other"
         record = self.env["res.partner"].create({"type": "other"})
-        self.assertEqual(record.name, "partner-00003")
+        self.assertEqual(record.name, "partner-00001")
 
-    def test_06_no_change_of_existing_sequence_number(self):
+    def test_no_change_of_existing_sequence_number(self):
         record = self.env["res.partner"].create({"name": "Test Partner"})
-        self.assertEqual(record.sequence_number, "partner-00004")
+        self.assertEqual(record.sequence_number, "partner-00001")
         record.set_sequence_field_and_name()
-        self.assertEqual(record.sequence_number, "partner-00004")
+        self.assertEqual(record.sequence_number, "partner-00001")

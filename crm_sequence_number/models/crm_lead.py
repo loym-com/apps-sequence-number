@@ -6,13 +6,11 @@ class CrmLead(models.Model):
     _inherit = ["crm.lead", "sequence.number.mixin", "expression.value.mixin"]
     _sequence_field = "sequence_number"
     _ir_sequence_code = "crm.lead"
-    _sql_constraints = [
-        (
-            "unique_sequence",
-            "UNIQUE(sequence_number)",
-            "sequence_number must be unique!",
-        ),
-    ]
+
+    _unique_sequence = models.Constraint(
+        'UNIQUE(sequence_number)',
+        'sequence_number must be unique!'
+    )
 
     sequence_number = fields.Char(
         string="No.",
