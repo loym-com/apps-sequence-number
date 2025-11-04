@@ -29,7 +29,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.view_project_kanban" />
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('o_project_kanban_main')]" position="before">
+            <xpath expr="//main[hasclass('o_project_kanban_main')]" position="before">
                 <div class="d-flex flex-column">
                     <div class="d-flex mb-0 h3">
                         <field name="sequence_code" string="Product No." decoration-bf="1" readonly="1"/>
