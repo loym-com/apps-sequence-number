@@ -24,16 +24,13 @@ class ProjectProject(models.Model):
         if self.env.context.get("skip_sequence_constrains"):
             return
 
+        self = self.with_context(skip_sequence_constrains=True)
         for rec in self:
-            values = {}
             if not rec.sequence_sequence:
-                values["sequence_sequence"] = self.env["ir.sequence"].next_by_code("project.sequence")
-            values["sequence_code"] = rec.get_value_from_source(
-                "ir.config_parameter",
-                "project_internal_external.project_sequence_pattern",
+                rec.sequence_sequence = self.env["ir.sequence"].next_by_code("project.sequence")
+            rec.sequence_code = rec.get_value_from_source(
+                "ir.config_parameter", "project_internal_external.project_sequence_pattern"
             )
-            if values:
-                rec.with_context(skip_sequence_constrains=True).write(values)
 
     def write(self, vals):
         vals = self.ondelete_sequence_code_delete_also_sequence_sequence(vals)
