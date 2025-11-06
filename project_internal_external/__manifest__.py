@@ -2,20 +2,19 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Contact No.",
+    "name": "Internal/External Projects",
     "summary": "",
     "author": "FIQ, Loym",
     "data": [
-        "data/ir_actions_server_data.xml",
-        "data/ir_sequence.xml",
-        "views/res_partner_views.xml",
+        "views/project_project_views.xml",
+        "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "base_display_name",
-        "base_mixin_sequence_number",
+        "project_sequence_number",
     ],
-    "license": "AGPL-3",
-    "version": "18.0.2.0.2",
+    "excludes": [""],
+    "license": "LGPL-3",
+    "version": "18.0.6.0.0",
     "website": "https://www.loym.com",
     "post_init_hook": "post_init_hook",
     "uninstall_hook": "pre_uninstall_hook",
