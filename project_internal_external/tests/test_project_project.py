@@ -38,6 +38,6 @@ class TestProjectProject(TransactionCase):
         )
         self.assertEqual(project.sequence_code, "Pe23-00011")
         project.sequence_sequence = None
-        self.assertFalse(project.sequence_code)
+        self.assertEqual(project.sequence_code, False) # Do not accept ""
         project.set_sequence_field_and_name()
         self.assertEqual(project.sequence_code, "Pe23-00012")
