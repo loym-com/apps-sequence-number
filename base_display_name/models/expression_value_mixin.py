@@ -13,7 +13,7 @@ class ExpressionValueMixin(models.AbstractModel):
     @api.model
     def _search_display_name(self, operator, value):
         # self._rec_names_search is readonly, so we need to work with search_fnames.
-        search_fnames = self.get_valid_field_paths_from_source("ir.model", "display_name_expression")
+        search_fnames = list(self.get_valid_field_paths_from_source("ir.model", "display_name_expression"))
         if not search_fnames:
             return super()._search_display_name(operator, value)
 
