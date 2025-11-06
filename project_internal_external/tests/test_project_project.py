@@ -37,3 +37,7 @@ class TestProjectProject(TransactionCase):
             {"name": "Test Project", "internal_external": "e"}
         )
         self.assertEqual(project.sequence_code, "Pe23-00011")
+        project.sequence_sequence = None
+        self.assertFalse(project.sequence_code)
+        project.set_sequence_field_and_name()
+        self.assertEqual(project.sequence_code, "Pe23-00012")
