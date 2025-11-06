@@ -19,25 +19,30 @@ class ProjectProject(models.Model):
         help="Value from ir.sequence"
     )
 
-    @api.constrains("company_id", "internal_external", "sequence_code")
+    @api.constrains("company_id", "internal_external")
     def set_sequence_code(self):
-        if self.env.context.get("skip_sequence_constrains"):
-            return
-
-        self = self.with_context(skip_sequence_constrains=True)
+        # Set sequence_code based on sequence_sequence
         for rec in self:
             if not rec.sequence_sequence:
-                rec.sequence_sequence = self.env["ir.sequence"].next_by_code("project.sequence")
+                if rec.sequence_code:
+                    rec.sequence_sequence = rec.sequence_code
+                else:
+                    rec.sequence_sequence = self.env["ir.sequence"].next_by_code(
+                        "project.sequence"
+                    )
             rec.sequence_code = rec.get_value_from_source(
                 "ir.config_parameter", "project_internal_external.project_sequence_pattern"
             )
 
     def write(self, vals):
-        vals = self.ondelete_sequence_code_delete_also_sequence_sequence(vals)
-        super().write(vals)
-        return True
-
-    def ondelete_sequence_code_delete_also_sequence_sequence(self, vals):
         if "sequence_code" in vals and not vals.get("sequence_code"):
             vals["sequence_sequence"] = ""
-        return vals
+        if "sequence_sequence" in vals and not vals.get("sequence_sequence"):
+            vals["sequence_code"] = ""
+
+        super().write(vals)
+
+        if vals.get("sequence_code") or vals.get("sequence_sequence"):
+            if not self.env.context.get("skip_sequence_constrains"):
+                self.with_context(skip_sequence_constrains=True).set_sequence_code()
+        return True
