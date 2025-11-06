@@ -36,9 +36,9 @@ class ProjectProject(models.Model):
 
     def write(self, vals):
         if "sequence_code" in vals and not vals.get("sequence_code"):
-            vals["sequence_sequence"] = ""
+            vals["sequence_sequence"] = None
         if "sequence_sequence" in vals and not vals.get("sequence_sequence"):
-            vals["sequence_code"] = ""
+            vals["sequence_code"] = None
 
         super().write(vals)
 
