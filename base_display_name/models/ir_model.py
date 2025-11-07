@@ -31,6 +31,6 @@ class IrModel(models.Model):
 
     @api.constrains("display_name_expression")
     def raise_error_if_invalid_field_paths(self):
-        return self.env[self.model].raise_error_if_invalid_field_paths_from_source(
-            "ir.model", "display_name_expression"
+        return self.env[self.model].raise_error_if_invalid_field_paths_from_expression(
+            self.display_name_expression
         )
