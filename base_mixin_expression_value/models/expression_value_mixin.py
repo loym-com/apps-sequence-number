@@ -28,8 +28,7 @@ class ExpressionValueMixin(models.AbstractModel):
         field_paths = self.get_field_paths_from_expression(expression)
         return self.get_valid_field_paths(field_paths)
 
-    def raise_error_if_invalid_field_paths_from_source(self, source, lookup):
-        expression = self.get_expression_from_source(source, lookup)
+    def raise_error_if_invalid_field_paths_from_expression(self, expression):
         field_paths = self.get_field_paths_from_expression(expression)
         self.raise_error_if_invalid_field_paths(field_paths)
 
@@ -66,6 +65,9 @@ class ExpressionValueMixin(models.AbstractModel):
             expression: "{r.parent_id.name}/{r.name}"
             field_paths: set("parent_id.name", "name")
         """
+        if not expression:
+            return set()
+
         # 1️⃣ Match everything inside braces {}
         pattern = r"\{([^{}]+)\}"  # matches { … } contents
         placeholders = re.findall(pattern, expression)
