@@ -28,9 +28,11 @@ class ExpressionValueMixin(models.AbstractModel):
         field_paths = self.get_field_paths_from_expression(expression)
         return self.get_valid_field_paths(field_paths)
 
-    def raise_error_if_invalid_field_paths_from_expression(self, expression):
+    def raise_error_if_invalid_expression(self, expression):
         field_paths = self.get_field_paths_from_expression(expression)
         self.raise_error_if_invalid_field_paths(field_paths)
+        method_paths = self.get_method_paths_from_expression(expression)
+        self.raise_error_if_invalid_method_paths(method_paths)
 
     def get_expression_from_source(self, source, source_lookup):
         """
@@ -55,42 +57,48 @@ class ExpressionValueMixin(models.AbstractModel):
             except Exception as e:
                 _logger.warning("Error evaluating expression %r for %s(%d): %s", expression, record._name, record.id, e)
 
+    ##################
+
     @api.model
     def get_field_paths_from_expression(self, expression):
         """
-        Use regular expression to get all field paths beginning with "r."
-        return: tuple of field paths, without the "r."
+        Return a set of r.field.paths (without 'r.') in the expression,
+        ignoring method calls and respecting optional f-string format specifiers.
+        """
+        r_field_pattern = r"r\.([a-zA-Z_][a-zA-Z0-9_]*(?:\.[a-zA-Z_][a-zA-Z0-9_]*)*)(?=\s*(?::|$))"
+        return self._extract_pattern_from_placeholders(expression, r_field_pattern)
 
-        Example:
-            expression: "{r.parent_id.name}/{r.name}"
-            field_paths: set("parent_id.name", "name")
+    @api.model
+    def get_method_paths_from_expression(self, expression):
+        """
+        Return a set of r.method calls (with arguments) in the expression.
+        The format specifier in f-strings is ignored.
+        """
+        # r_method_pattern = r"(r\.[a-zA-Z_][a-zA-Z0-9_]*\([^)]*\))(?=\s*(?:[:}]))"
+        # r_method_pattern = r"(r\.[a-zA-Z_][a-zA-Z0-9_]*\([^)]*\))"
+        r_method_pattern = r"r\.([a-zA-Z_][a-zA-Z0-9_]*\([^)]*\))"
+
+        
+
+        return self._extract_pattern_from_placeholders(expression, r_method_pattern)
+
+    @api.model
+    def _extract_pattern_from_placeholders(self, expression, pattern):
+        """
+        Extract all matches of the given regex pattern inside placeholders {}.
+        Returns a set of matches.
         """
         if not expression:
             return set()
 
-        # 1️⃣ Match everything inside braces {}
-        pattern = r"\{([^{}]+)\}"  # matches { … } contents
-        placeholders = re.findall(pattern, expression)
-        
-        # 2️⃣ For each placeholder, find r.field.paths without r.
-        r_path_pattern = r"r\.([a-zA-Z_][a-zA-Z0-9_\.]*)"
-        field_paths = set()
+        # Find all placeholders
+        placeholders = re.findall(r"\{([^{}]+)\}", expression)
+        matches = set()
         for placeholder in placeholders:
-            found = re.findall(r_path_pattern, placeholder)
-            field_paths.update(found)
-        
-        return field_paths
+            matches.update(re.findall(pattern, placeholder))
+        return matches
 
-    @api.model
-    def check_if_all_field_paths_are_valid(self, field_paths):
-        """
-        Return True if all paths exist on the model, False otherwise.
-        """
-        model = self.env[self._name]
-        for path in field_paths:
-            if not self._is_field_path_valid(model, path.split('.')):
-                return False
-        return True
+    ##################
 
     @api.model
     def get_valid_field_paths(self, field_paths):
@@ -106,11 +114,20 @@ class ExpressionValueMixin(models.AbstractModel):
         return valid_paths
 
     def raise_error_if_invalid_field_paths(self, field_paths):
-        valid = self.check_if_all_field_paths_are_valid(field_paths)
-        if not valid:
-            raise ValidationError(
-                f"Not all field_paths are valid: {field_paths}"
-            )
+        model = self.env[self._name]
+        for path in field_paths:
+            if not self._is_field_path_valid(model, path.split('.')):
+                raise ValidationError(
+                    f"Not all field_paths are valid: {field_paths}"
+                )
+
+    def raise_error_if_invalid_method_paths(self, method_paths):
+        model = self.env[self._name]
+        for path in method_paths:
+            if not self._is_method_path_valid(model, path.split('.')):
+                raise ValidationError(
+                    f"Not all method_paths are valid: {method_paths}"
+                )
 
     @api.model
     def _is_field_path_valid(self, model, path_parts):
@@ -131,3 +148,34 @@ class ExpressionValueMixin(models.AbstractModel):
             # Non-relational field cannot have further parts
             return False
         return True
+
+    @api.model
+    def _is_method_path_valid(self, model, path_parts):
+        """
+        Recursive helper to check if a dotted method path exists on a model.
+
+        Example:
+            path_parts = ["partner_id", "get_full_name"]
+        """
+        if not path_parts:
+            return True
+
+        method_or_field = path_parts[0]
+
+        # 1️⃣ Check if it's a relational field
+        field = model._fields.get(method_or_field)
+        if field and field.type in ('many2one', 'one2many', 'many2many'):
+            rel_model = self.env[field.comodel_name]
+            return self._is_method_path_valid(rel_model, path_parts[1:])
+
+        # 2️⃣ If it's the last part, check if the method exists
+        if len(path_parts) == 1:
+            method = path_parts[0].partition('(')[0]
+            return hasattr(model, method) and callable(getattr(model, method))
+
+        # 3️⃣ If non-relational field and more parts exist, invalid
+        if field:
+            return False
+
+        # 4️⃣ Otherwise, invalid path
+        return False

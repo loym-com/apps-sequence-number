@@ -12,6 +12,6 @@ class ResConfigSettings(models.TransientModel):
 
     @api.constrains("project_sequence_pattern")
     def _constrains_project_sequence_pattern(self):
-        self.env["project.project"].raise_error_if_invalid_field_paths_from_expression(
+        self.env["project.project"].raise_error_if_invalid_expression(
             self.project_sequence_pattern
         )
