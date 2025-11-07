@@ -11,6 +11,6 @@
         "base",
     ],
     "license": "AGPL-3",
-    "version": "18.0.2.0.3",
+    "version": "18.0.2.0.4",
     "website": "https://www.loym.com",
 }
