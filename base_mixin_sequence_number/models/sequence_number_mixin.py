@@ -29,6 +29,7 @@ class SequenceNumberMixin(models.AbstractModel):
     def write(self, vals):
         super().write(vals)
         self._set_name_if_empty()
+        return True
 
     def set_sequence_field_and_name(self):
         self._set_sequence_field()
