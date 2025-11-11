@@ -10,13 +10,16 @@ class ProjectProject(models.Model):
 
     internal_external = fields.Selection(
         string="Internal/External",
-        selection=[("i", "Internal"), ("e", "External")]
+        selection=[("i", "Internal"), ("e", "External")],
+        copy=False,
     )
     company_id = fields.Many2one(
         default=lambda self: self.env.company,
+        copy=False,
     )
     sequence_sequence = fields.Char(
-        help="Value from ir.sequence"
+        help="Value from ir.sequence",
+        copy=False,
     )
 
     @api.constrains("company_id", "internal_external")
