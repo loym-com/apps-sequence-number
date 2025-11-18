@@ -40,10 +40,6 @@ class ProjectProject(models.Model):
 
     def _sync_related_records(self, vals=None):
         for project in self:
-            # --- alias_name ---
-            # TODO: Write test
-            if not vals or "sequence_code" in vals:
-                project.alias_name = project.sequence_code
 
             # --- analytic account ---
             if project.account_id:
