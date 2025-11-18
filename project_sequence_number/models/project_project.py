@@ -28,19 +28,24 @@ class ProjectProject(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
-        res._sync_analytic_account_name()
+        res._sync_related_records()
         return res
 
     def write(self, vals):
         super().write(vals)
-        self._sync_analytic_account_name()
+        self._sync_related_records(vals)
         return True
 
-    def _sync_analytic_account_name(self):
-        """Set analytic account name equal to project's display name."""
-        for rec in self:
-            if not rec.account_id:
-                continue
-            display_name = rec.display_name
-            if display_name:
-                rec.account_id.name = display_name
+    def _sync_related_records(self, vals=None):
+        for project in self:
+            # --- alias_name ---
+            # TODO: Write test
+            if not vals or "sequence_code" in vals:
+                project.alias_name = project.sequence_code
+
+            # --- analytic account ---
+            if project.account_id:
+                if not vals or "sequence_code" in vals:
+                    project.account_id.code = project.sequence_code
+                if not vals or "name" in vals:
+                    project.account_id.name = project.name
