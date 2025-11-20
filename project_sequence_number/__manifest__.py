@@ -20,6 +20,6 @@
     "license": "AGPL-3",
     "post_init_hook": "post_init_hook",
     "uninstall_hook": "pre_uninstall_hook",
-    "version": "19.0.5.0.0",
+    "version": "19.0.5.0.1",
     "website": "https://www.loym.com",
 }
