@@ -29,14 +29,19 @@ class ProjectProject(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        res = super().create(vals_list)
-        res._sync_related_records()
-        return res
+        new_records = super().create(vals_list)
+        new_records._sync_related_records()
+        return new_records
 
     def write(self, vals):
         super().write(vals)
         self._sync_related_records(vals)
         return True
+
+    def copy(self, default):
+        new_records = super().copy(default)
+        new_records._sync_related_records()
+        return new_records
 
     def _sync_related_records(self, vals=None):
         for project in self:
