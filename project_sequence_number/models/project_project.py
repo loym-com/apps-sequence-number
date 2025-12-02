@@ -38,7 +38,7 @@ class ProjectProject(models.Model):
         self._sync_related_records(vals)
         return True
 
-    def copy(self, default):
+    def copy(self, default=None):
         new_records = super().copy(default)
         new_records._sync_related_records()
         return new_records
