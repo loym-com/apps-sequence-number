@@ -11,11 +11,11 @@
         "views/res_partner_views.xml",
     ],
     "depends": [
-        "base_display_name",
+        # "base_display_name",
         "base_mixin_sequence_number",
     ],
     "license": "AGPL-3",
-    "version": "19.0.5.0.0",
+    "version": "19.0.5.0.1",
     "website": "https://www.loym.com",
     "post_init_hook": "post_init_hook",
     "uninstall_hook": "pre_uninstall_hook",

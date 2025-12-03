@@ -6,7 +6,11 @@
         <field name="inherit_id" ref="base.view_model_form" />
         <field name="arch" type="xml">
             <field name="modules" position="after">
-                <field name="display_name_expression" placeholder="{r.sequence_number} - {name}" />
+                <field
+                    name="display_name_expression"
+                    placeholder="{r.sequence_number} - {name}"
+                    invisible="not use_display_name_expression"
+                />
             </field>
         </field>
     </record>

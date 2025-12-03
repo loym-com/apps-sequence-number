@@ -10,6 +10,6 @@ def pre_uninstall_hook(env):
     """Remove the project sequence config parameter when uninstalling the module."""
 
     key = "project_internal_external.project_sequence_pattern"
-    existing = env['ir.config_parameter'].sudo().get_param(key)
-    if existing:
-        env['ir.config_parameter'].sudo().delete_param(key)
+    param = env['ir.config_parameter'].sudo().search([('key', '=', key)], limit=1)
+    if param:
+        param.unlink()

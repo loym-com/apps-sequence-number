@@ -6,13 +6,13 @@
     "summary": "Choose how to see records",
     "author": "FIQ, Loym",
     "data": [
-        # "views/ir_model_views.xml",
+        "views/ir_model_views.xml",
     ],
     "depends": [
         "base_mixin_expression_value",
     ],
     "license": "AGPL-3",
     "pre_init_hook": "pre_init_hook",
-    "version": "19.0.5.0.7",
+    "version": "19.0.5.0.8",
     "website": "https://www.loym.com",
 }
