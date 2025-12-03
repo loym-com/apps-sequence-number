@@ -11,7 +11,7 @@ class ProjectProject(models.Model):
     internal_external = fields.Selection(
         string="Internal/External",
         selection=[("i", "Internal"), ("e", "External")],
-        copy=False,
+        copy=True,
     )
     company_id = fields.Many2one(
         default=lambda self: self.env.company,
