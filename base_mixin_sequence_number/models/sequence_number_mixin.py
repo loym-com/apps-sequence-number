@@ -56,14 +56,3 @@ class SequenceNumberMixin(models.AbstractModel):
         for rec in self:
             if rec[rec._sequence_field] and not rec.name:
                 rec.name = rec[rec._sequence_field]
-
-    # DEPRECATED
-    sequence_code = fields.Char(
-        string="Sequence Code",
-        copy=False,
-        store=True,
-    )
-    sequence_number = fields.Char(
-        string="No.",
-        copy=False,
-    )
