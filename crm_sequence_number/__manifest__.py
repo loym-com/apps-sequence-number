@@ -4,7 +4,7 @@
 
 {
     "name": "Lead/Opportunity No.",
-    "version": "19.0.5.0.0",
+    "version": "19.0.5.0.1",
     "author": "FIQ, Loym",
     "website": "https://www.loym.com",
     "license": "LGPL-3",

@@ -2,7 +2,7 @@
 {
     "name": "Product No.",
     "summary": " ",
-    "version": "19.0.5.0.1",
+    "version": "19.0.5.0.2",
     "author": "FIQ, Loym",
     "website": "https://www.loym.com",
     "license": "AGPL-3",
