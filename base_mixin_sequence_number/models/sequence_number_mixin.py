@@ -18,8 +18,8 @@ class SequenceNumberMixin(models.AbstractModel):
     @api.model_create_multi
     def create(self, vals_list):
         """Set sequence_number and name, if sequence_number is not set."""
-        vals_list_ok = [vals for vals in vals_list if self._sequence_field in vals]
-        vals_list_todo = [vals for vals in vals_list if self._sequence_field not in vals]
+        vals_list_ok = [vals for vals in vals_list if vals.get(self._sequence_field)]
+        vals_list_todo = [vals for vals in vals_list if not vals.get(self._sequence_field)]
         # Create first, so we can use the record "id" etc. in the expression
         records_ok = super().create(vals_list_ok)
         records_todo = super().create(vals_list_todo)
