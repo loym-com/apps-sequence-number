@@ -12,9 +12,9 @@ class ProjectTask(models.Model):
     _ir_sequence_code = "project.task"
     _sql_constraints = [
         (
-            "unique_sequence",
-            "UNIQUE(code)",
-            "code must be unique!",
+            "unique_code_per_company",
+            "UNIQUE(code, company_id)",
+            "code must be unique per company!",
         ),
     ]
 

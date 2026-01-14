@@ -1,16 +1,27 @@
 def post_init_hook(env):
+    Company = env["res.company"]
     project_model = env["ir.model"].search([("model", "=", "project.project")])
+    display_name_expression = (
+        ("{r.pick('company_id.code')} " if Company._fields.get("code") else "")
+        +
+        "{r.pick('sequence_code')} {r.name}"
+    )
     project_model.write(
         {
             "use_display_name_expression": True,
-            "display_name_expression": "{r.sequence_code + ' - ' if r.sequence_code and r.sequence_code != r.name else ''}{r.name}",
+            "display_name_expression": display_name_expression,
         }
     )
     task_model = env["ir.model"].search([("model", "=", "project.task")])
+    display_name_expression = (
+        ("{r.pick('company_id.code')} " if Company._fields.get("code") else "")
+        +
+        "{r.pick('code')} {r.name}"
+    )
     task_model.write(
         {
             "use_display_name_expression": True,
-            "display_name_expression": "{'[' + r.code + '] ' if r.code and r.code != r.name else ''}{r.name}",
+            "display_name_expression": display_name_expression,
         }
     )
 

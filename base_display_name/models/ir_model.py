@@ -15,17 +15,22 @@ class IrModel(models.Model):
 
     use_display_name_expression = fields.Boolean(
         string="Use Display Name Expression",
+        help=(
+            "Use Display Name Expression only if:\n"
+            "1. The model does inherit 'expression.value.mixin' in a module.\n"
+            "2. The model does not inherit _compute_display_name() in any module."
+            "   (See in 'partner_sequence_number' how to work around this.)"
+        ),
     )
 
     display_name_expression = fields.Char(
         string="Display Name Exp.",
         help=(
-            "Example: '{parent_id.display_code}/{display_code} - {name}'\n"
+            "Example: '{r.pick('parent_id.sequence_number')} {r.name}'\n"
             "Use python string format syntax.\n\n"
-            "Conditions for displaying a record like the expression:\n"
-            "1. The field values are non-false (boolean field may be False)."
-            "2. The name has a different value than the other fields.\n"
-            "3. No other module will _compute_display_name()."
+            "pick('field.path') will show the field value on these conditions:\n"
+            "1. The value is non-false.\n"
+            "2. The value is different from the record's name."
         ),
     )
 

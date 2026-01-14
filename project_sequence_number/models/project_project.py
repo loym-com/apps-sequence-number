@@ -8,9 +8,9 @@ class ProjectProject(models.Model):
     _ir_sequence_code = "project.sequence"
     _sql_constraints = [
         (
-            "unique_sequence",
-            "UNIQUE(sequence_code)",
-            "sequence_code must be unique!",
+            "unique_sequence_code_per_company",
+            "UNIQUE(sequence_code, company_id)",
+            "sequence_code must be unique per company!",
         ),
     ]
 
