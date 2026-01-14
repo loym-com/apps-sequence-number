@@ -9,8 +9,8 @@ class ResPartner(models.Model):
     _ir_sequence_code = "res.partner"
 
     _unique_sequence = models.Constraint(
-        'UNIQUE(sequence_number)',
-        'sequence_number must be unique!'
+        "UNIQUE(sequence_number, company_id)",
+        "sequence_number must be unique per company!",
     )
 
     sequence_number = fields.Char(

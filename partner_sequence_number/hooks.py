@@ -1,15 +1,21 @@
 def post_init_hook(env):
-    model = env["ir.model"].search([("model", "=", "res.partner")])
-    model.write(
+    Company = env["res.company"]
+    partner_model = env["ir.model"].search([("model", "=", "res.partner")])
+    display_name_expression = (
+        ("{r.pick('company_id.code')} " if Company._fields.get("code") else "")
+        +
+        "{r.pick('sequence_number')} {r.name}"
+    )
+    partner_model.write(
         {
             "use_display_name_expression": True,
-            "display_name_expression": "{r.sequence_number + ' - ' if r.sequence_number and r.sequence_number != r.name else ''}{r.name}",
+            "display_name_expression": display_name_expression,
         }
     )
 
 def pre_uninstall_hook(env):
-    model = env["ir.model"].search([("model", "=", "res.partner")])
-    model.write(
+    partner_model = env["ir.model"].search([("model", "=", "res.partner")])
+    partner_model.write(
         {
             "use_display_name_expression": False,
             "display_name_expression": "",

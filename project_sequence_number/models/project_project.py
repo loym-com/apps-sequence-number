@@ -8,8 +8,8 @@ class ProjectProject(models.Model):
     _ir_sequence_code = "project.sequence"
 
     _unique_sequence = models.Constraint(
-        'UNIQUE(sequence_code)',
-        'sequence_code must be unique!'
+        "UNIQUE(sequence_code, company_id)",
+        "sequence_code must be unique per company!",
     )
 
     sequence_code = fields.Char(

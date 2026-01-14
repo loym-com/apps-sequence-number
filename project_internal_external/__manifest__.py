@@ -10,7 +10,7 @@
         "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "project_sequence_number",
+        "project",
     ],
     "excludes": [""],
     "license": "LGPL-3",

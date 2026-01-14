@@ -53,9 +53,23 @@ class ExpressionValueMixin(models.AbstractModel):
                 value = safe_eval(f"f{repr(expression)}", {"r": record})
                 if value in ("False"):
                     return None
-                return value
+                return str(value).strip()
             except Exception as e:
                 _logger.warning("Error evaluating expression %r for %s(%d): %s", expression, record._name, record.id, e)
+
+    def pick(self, field_name):
+        """
+        Return the value of the given field if it exists and differs from the record's name.
+        Supports dot notation, e.g., 'company_id.code'.
+        """
+        value = self
+        for part in field_name.split("."):
+            value = getattr(value, part, None)
+            if value is None:
+                return ""  # stop if any part is missing
+
+        name = getattr(self, "name", None)
+        return value if value and value != name else ""
 
     ##################
 
@@ -74,11 +88,7 @@ class ExpressionValueMixin(models.AbstractModel):
         Return a set of r.method calls (with arguments) in the expression.
         The format specifier in f-strings is ignored.
         """
-        # r_method_pattern = r"(r\.[a-zA-Z_][a-zA-Z0-9_]*\([^)]*\))(?=\s*(?:[:}]))"
-        # r_method_pattern = r"(r\.[a-zA-Z_][a-zA-Z0-9_]*\([^)]*\))"
-        r_method_pattern = r"r\.([a-zA-Z_][a-zA-Z0-9_]*\([^)]*\))"
-
-        
+        r_method_pattern = r"r\.([a-zA-Z_][a-zA-Z0-9_]*)\s*\("
 
         return self._extract_pattern_from_placeholders(expression, r_method_pattern)
 

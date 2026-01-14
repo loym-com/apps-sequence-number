@@ -8,8 +8,8 @@ class ProductTemplate(models.Model):
     _ir_sequence_code = "product.template"
 
     _unique_sequence = models.Constraint(
-        'UNIQUE(sequence_number)',
-        'sequence_number must be unique!'
+        "UNIQUE(sequence_number, company_id)",
+        "sequence_number must be unique per company!",
     )
 
     sequence_number = fields.Char(

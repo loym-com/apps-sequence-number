@@ -12,8 +12,8 @@ class ProjectTask(models.Model):
     _ir_sequence_code = "project.task"
 
     _unique_sequence = models.Constraint(
-        'UNIQUE(code)',
-        'code must be unique!'
+        "UNIQUE(code, company_id)",
+        "code must be unique per company!",
     )
 
     @property

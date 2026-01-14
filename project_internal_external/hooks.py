@@ -1,15 +1,32 @@
 def post_init_hook(env):
-    """Set default config parameter for project sequence pattern if not already set."""
-
-    key = "project_internal_external.project_sequence_pattern"
-    default_value = "P{r.internal_external}{r.sequence_sequence}"
-    env['ir.config_parameter'].sudo().set_param(key, default_value)
+    Company = env["res.company"]
+    project_model = env["ir.model"].search([("model", "=", "project.project")])
+    if project_model._fields.get("display_name_expression"):
+        display_name_expression = (
+            ("{r.pick('company_id.code')} " if Company._fields.get("code") else "")
+            +
+            "P{r.pick('internal_external')}{r.pick('sequence_code')} {r.name}"
+        )
+        project_model.write(
+            {
+                "use_display_name_expression": True,
+                "display_name_expression": display_name_expression,
+            }
+        )
 
 
 def pre_uninstall_hook(env):
-    """Remove the project sequence config parameter when uninstalling the module."""
-
-    key = "project_internal_external.project_sequence_pattern"
-    param = env['ir.config_parameter'].sudo().search([('key', '=', key)], limit=1)
-    if param:
-        param.unlink()
+    Company = env["res.company"]
+    project_model = env["ir.model"].search([("model", "=", "project.project")])
+    if project_model._fields.get("display_name_expression"):
+        display_name_expression = (
+            ("{r.pick('company_id.code')} " if Company._fields.get("code") else "")
+            +
+            "{r.pick('sequence_code')} {r.name}"
+        )
+        project_model.write(
+            {
+                "use_display_name_expression": True,
+                "display_name_expression": display_name_expression,
+            }
+        )
