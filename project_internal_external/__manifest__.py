@@ -14,7 +14,7 @@
     ],
     "excludes": [""],
     "license": "LGPL-3",
-    "version": "18.0.6.0.9",
+    "version": "18.0.6.0.10",
     "website": "https://www.loym.com",
     "post_init_hook": "post_init_hook",
     "uninstall_hook": "pre_uninstall_hook",
