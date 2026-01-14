@@ -6,13 +6,14 @@ class ProductProduct(models.Model):
     _inherit = ["product.product", "sequence.number.mixin", "expression.value.mixin"]
     _sequence_field = "sequence_number"
     _ir_sequence_code = "product.product"
-    _sql_constraints = [
-        (
-            "unique_sequence_number_per_company",
-            "UNIQUE(sequence_number, company_id)",
-            "sequence_number must be unique per company!",
-        ),
-    ]
+    # _sql_constraints = [
+    #     (
+    #         "unique_sequence_number_per_company",
+    #         "UNIQUE(sequence_number, company_id)",
+    #         "sequence_number must be unique per company!",
+    #     ),
+    # ]
+    # unable to add constraint 'product_product_unique_sequence_number_per_company' as UNIQUE(sequence_number, company_id)
 
     sequence_number = fields.Char(
         string="No.",
