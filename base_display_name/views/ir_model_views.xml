@@ -11,6 +11,10 @@
                     placeholder="{r.pick('parent_id.sequence_number')} {r.name}"
                     invisible="not use_display_name_expression"
                 />
+                <field
+                    name="code"
+                    invisible="not use_display_name_expression"
+                />
             </field>
         </field>
     </record>
