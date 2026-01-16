@@ -14,8 +14,14 @@ class ProductTemplate(models.Model):
         ),
     ]
 
+    company_code = fields.Char(
+        related="company_id.code",
+        string="Company Code",
+        store=True,
+        readonly=True,
+    )
     sequence_number = fields.Char(
-        string="No.",
+        string="Product Template No.",
         copy=False,
         readonly=True,
     )

@@ -14,8 +14,14 @@ class CrmLead(models.Model):
         ),
     ]
 
+    company_code = fields.Char(
+        related="company_id.code",
+        string="Company Code",
+        store=True,
+        readonly=True,
+    )
     sequence_number = fields.Char(
-        string="No.",
+        string="Lead No.",
         copy=False,
         readonly=True,
     )

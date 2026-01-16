@@ -6,10 +6,10 @@
         <field name="inherit_id" ref="product.product_product_tree_view" />
         <field name="arch" type="xml">
             <field name="default_code" position="before">
+                <field name="company_code" optional="hide" />
                 <field
                     name="sequence_number"
-                    optional="show"
-                    string="Product No."
+                    optional="hide"
                 />
             </field>
         </field>
@@ -21,11 +21,11 @@
         <field name="inherit_id" ref="product.product_search_form_view" />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field
-                    name="sequence_number"
-                    string="Product No."
-                    filter_domain="[('sequence_number', 'ilike', self)]"
-                />
+                <field name="name" position="attributes">
+                    <attribute
+                        name="filter_domain"
+                    >['|', '|', ('name', 'ilike', self), ('company_code', 'ilike', self), ('sequence_number', 'ilike', self)]</attribute>
+                </field>
             </field>
         </field>
     </record>

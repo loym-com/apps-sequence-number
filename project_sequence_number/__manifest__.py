@@ -15,6 +15,7 @@
         "base_display_name",
         "base_mixin_sequence_number",
         "project",
+        "res_company_code",
     ],
     "excludes": [""],
     "license": "AGPL-3",

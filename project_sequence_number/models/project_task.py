@@ -22,8 +22,14 @@ class ProjectTask(models.Model):
     def SELF_WRITABLE_FIELDS(self):
         return super().SELF_WRITABLE_FIELDS | PROJECT_TASK_WRITABLE_FIELDS
 
+    company_code = fields.Char(
+        related="company_id.code",
+        string="Company Code",
+        store=True,
+        readonly=True,
+    )
     code = fields.Char(
-        string="No.",
+        string="Task No.",
         # required=True,
         # default="/",
         readonly=True,

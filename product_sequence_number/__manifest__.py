@@ -11,6 +11,7 @@
         "base_display_name",
         "base_mixin_sequence_number",
         "product",
+        "res_company_code",
     ],
     "data": [
         "data/ir_actions_server_data.xml",

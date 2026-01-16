@@ -2,9 +2,7 @@ def post_init_hook(env):
     Company = env["res.company"]
     template_model = env["ir.model"].search([("model", "=", "product.template")])
     display_name_expression = (
-        ("{r.pick('company_id.code')} " if Company._fields.get("code") else "")
-        +
-        "{r.pick('sequence_number')} {r.name}"
+        "{r.pick('company_id.code')} {r.pick('sequence_number')} {r.name}"
     )
     template_model.write(
         {
@@ -14,9 +12,7 @@ def post_init_hook(env):
     )
     variant_model = env["ir.model"].search([("model", "=", "product.product")])
     display_name_expression = (
-        ("{r.pick('company_id.code')} " if Company._fields.get("code") else "")
-        +
-        "{r.pick('sequence_number')} {r.name}"
+        "{r.pick('company_id.code')} {r.pick('sequence_number')} {r.name}"
     )
     variant_model.write(
         {
@@ -34,7 +30,7 @@ def pre_uninstall_hook(env):
             "display_name_expression": "",
         }
     )
-    variant_model = env["ir.model"].search([("model", "=", "product.variant")])
+    variant_model = env["ir.model"].search([("model", "=", "product.product")])
     variant_model.write(
         {
             "use_display_name_expression": False,

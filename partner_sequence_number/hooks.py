@@ -2,9 +2,7 @@ def post_init_hook(env):
     Company = env["res.company"]
     partner_model = env["ir.model"].search([("model", "=", "res.partner")])
     display_name_expression = (
-        ("{r.pick('company_id.code')} " if Company._fields.get("code") else "")
-        +
-        "{r.pick('sequence_number')} {r.name}"
+        "{r.pick('company_id.code')} {r.pick('sequence_number')} {r.name}"
     )
     partner_model.write(
         {

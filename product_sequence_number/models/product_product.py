@@ -15,8 +15,14 @@ class ProductProduct(models.Model):
     # ]
     # unable to add constraint 'product_product_unique_sequence_number_per_company' as UNIQUE(sequence_number, company_id)
 
+    company_code = fields.Char(
+        related="company_id.code",
+        string="Company Code",
+        store=True,
+        readonly=True,
+    )
     sequence_number = fields.Char(
-        string="No.",
+        string="Product Variant No.",
         copy=False,
         readonly=True,
     )
