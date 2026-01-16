@@ -1,7 +1,7 @@
 from odoo import models, fields
 
 PROJECT_TASK_WRITABLE_FIELDS = {
-    "sequence_number",
+    "code",
 }
 
 
