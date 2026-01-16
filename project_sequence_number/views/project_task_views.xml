@@ -42,7 +42,7 @@
             <field name="name" position="attributes">
                 <attribute
                     name="filter_domain"
-                >['|', '|', ('name', 'ilike', self), ('company_code', 'ilike', self), ('sequence_number', 'ilike', self)]</attribute>
+                >['|', '|', ('name', 'ilike', self), ('company_code', 'ilike', self), ('code', 'ilike', self)]</attribute>
             </field>
         </field>
     </record>
