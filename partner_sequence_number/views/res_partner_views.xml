@@ -15,6 +15,7 @@
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
             <field name="complete_name" position="before">
+                <field name="company_code" optional="hide" />
                 <field name="sequence_number" optional="hide" />
             </field>
         </field>
@@ -27,6 +28,18 @@
             <xpath expr="//main/div" position="before">
                 <field name="sequence_number" class="mb-0 fw-bold fs-5"/>
             </xpath>
+        </field>
+    </record>
+    <record id="res_partner_view_search" model="ir.ui.view">
+        <field name="name">res.partner.view.search.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute
+                    name="filter_domain"
+                >['|', '|', ('name', 'ilike', self), ('company_code', 'ilike', self), ('sequence_number', 'ilike', self)]</attribute>
+            </field>
         </field>
     </record>
 </odoo>

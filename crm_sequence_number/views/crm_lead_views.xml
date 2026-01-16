@@ -15,7 +15,8 @@
         <field name="inherit_id" ref="crm.crm_case_tree_view_leads" />
         <field name="arch" type="xml">
             <field name="name" position="before">
-                <field name="sequence_number" />
+                <field name="company_code" optional="hide" />
+                <field name="sequence_number" optional="hide" />
             </field>
         </field>
     </record>
@@ -27,7 +28,7 @@
             <field name="name" position="attributes">
                 <attribute
                     name="filter_domain"
-                >['|', ('name', 'ilike', self), ('sequence_number', 'ilike', self)]</attribute>
+                >['|', '|', ('name', 'ilike', self), ('company_code', 'ilike', self), ('sequence_number', 'ilike', self)]</attribute>
             </field>
         </field>
     </record>
@@ -37,7 +38,8 @@
         <field name="inherit_id" ref="crm.crm_case_tree_view_oppor" />
         <field name="arch" type="xml">
             <field name="name" position="before">
-                <field name="sequence_number" />
+                <field name="company_code" optional="hide" />
+                <field name="sequence_number" optional="hide" />
             </field>
         </field>
     </record>
@@ -59,7 +61,7 @@
             <field name="name" position="attributes">
                 <attribute
                     name="filter_domain"
-                >['|', ('name', 'ilike', self), ('sequence_number', 'ilike', self)]</attribute>
+                >['|', '|', ('name', 'ilike', self), ('company_code', 'ilike', self), ('sequence_number', 'ilike', self)]</attribute>
             </field>
         </field>
     </record>

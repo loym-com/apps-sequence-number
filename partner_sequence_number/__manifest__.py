@@ -13,6 +13,7 @@
     "depends": [
         # "base_display_name",
         "base_mixin_sequence_number",
+        "res_company_code",
     ],
     "license": "AGPL-3",
     "version": "19.0.5.0.2",

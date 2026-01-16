@@ -13,6 +13,7 @@
         "base_display_name",
         "base_mixin_sequence_number",
         "crm",
+        "res_company_code",
     ],
     "data": [
         "data/ir_actions_server_data.xml",

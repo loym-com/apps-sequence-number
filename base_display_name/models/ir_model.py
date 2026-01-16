@@ -33,10 +33,6 @@ class IrModel(models.Model):
             "2. The value is different from the record's name."
         ),
     )
-    code = fields.Char(
-        string="Code",
-        help="A short code to identify the model.",
-    )
 
     @api.constrains("display_name_expression")
     def raise_error_if_invalid_field_paths(self):

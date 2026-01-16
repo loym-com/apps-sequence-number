@@ -12,8 +12,14 @@ class ProjectProject(models.Model):
         "sequence_code must be unique per company!",
     )
 
+    company_code = fields.Char(
+        related="company_id.code",
+        string="Company Code",
+        store=True,
+        readonly=True,
+    )
     sequence_code = fields.Char(
-        string="No.",
+        string="Project No.",
         copy=False,
         readonly=True,
     )
