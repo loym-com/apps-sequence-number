@@ -2,7 +2,7 @@ def post_init_hook(env):
     Company = env["res.company"]
     project_model = env["ir.model"].search([("model", "=", "project.project")])
     display_name_expression = (
-        "{r.pick('company_id.code')} {r.pick('sequence_code')} {r.name}"
+        "{r.pick('company_code')} {r.pick('sequence_code')} {r.name}"
     )
     project_model.write(
         {
@@ -12,7 +12,7 @@ def post_init_hook(env):
     )
     task_model = env["ir.model"].search([("model", "=", "project.task")])
     display_name_expression = (
-        "{r.pick('company_id.code')} {r.pick('code')} {r.name}"
+        "{r.pick('company_code')} {r.pick('code')} {r.name}"
     )
     task_model.write(
         {
