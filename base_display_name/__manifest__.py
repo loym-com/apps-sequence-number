@@ -13,6 +13,6 @@
     ],
     "license": "AGPL-3",
     "pre_init_hook": "pre_init_hook",
-    "version": "19.0.5.0.9",
+    "version": "19.0.5.0.10",
     "website": "https://www.loym.com",
 }
