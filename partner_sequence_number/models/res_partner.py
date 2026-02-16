@@ -22,7 +22,6 @@ class ResPartner(models.Model):
     sequence_number = fields.Char(
         string="Contact No.",
         copy=False,
-        readonly=True,
     )
 
     # Since Odoo has a custom _compute_display_name() for contacts,

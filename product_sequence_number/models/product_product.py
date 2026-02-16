@@ -22,5 +22,4 @@ class ProductProduct(models.Model):
     sequence_number = fields.Char(
         string="Product Variant No.",
         copy=False,
-        readonly=True,
     )

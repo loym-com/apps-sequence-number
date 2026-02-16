@@ -20,7 +20,7 @@
         <field name="arch" type="xml">
             <field name="name" position="before">
                 <field name="company_code" optional="hide" />
-                <field name="code" optional="hide" />
+                <field name="code" optional="hide" readonly="1" />
             </field>
         </field>
     </record>
@@ -30,7 +30,7 @@
         <field name="inherit_id" ref="project.view_task_kanban" />
         <field name="arch" type="xml">
             <field name="name" position="before">
-                <field name="code" />
+                <field name="code" readonly="1" />
             </field>
         </field>
     </record>

@@ -16,7 +16,7 @@
         <field name="arch" type="xml">
             <field name="name" position="before">
                 <field name="company_code" optional="hide" />
-                <field name="sequence_number" optional="hide" />
+                <field name="sequence_number" optional="hide" readonly="1" />
             </field>
         </field>
     </record>
@@ -39,7 +39,7 @@
         <field name="arch" type="xml">
             <field name="name" position="before">
                 <field name="company_code" optional="hide" />
-                <field name="sequence_number" optional="hide" />
+                <field name="sequence_number" optional="hide" readonly="1" />
             </field>
         </field>
     </record>
@@ -49,7 +49,7 @@
         <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
         <field name="arch" type="xml">
             <field name="name" position="before">
-                <field name="sequence_number" />
+                <field name="sequence_number" readonly="1" />
             </field>
         </field>
     </record>

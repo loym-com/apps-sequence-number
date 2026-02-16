@@ -21,7 +21,6 @@ class ProjectProject(models.Model):
     sequence_code = fields.Char(
         string="Project No.",
         copy=False,
-        readonly=True,
     )
 
     name = fields.Char(

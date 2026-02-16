@@ -10,6 +10,7 @@
                 <field
                     name="sequence_number"
                     optional="hide"
+                    readonly="1"
                 />
             </field>
         </field>

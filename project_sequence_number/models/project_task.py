@@ -37,6 +37,5 @@ class ProjectTask(models.Model):
         string="Task No.",
         # required=True,
         # default="/",
-        readonly=True,
         copy=False,
     )
