@@ -23,5 +23,4 @@ class ProductTemplate(models.Model):
     sequence_number = fields.Char(
         string="Product Template No.",
         copy=False,
-        readonly=True,
     )

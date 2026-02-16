@@ -23,5 +23,4 @@ class CrmLead(models.Model):
     sequence_number = fields.Char(
         string="Lead No.",
         copy=False,
-        readonly=True,
     )
