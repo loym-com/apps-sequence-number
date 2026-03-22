@@ -1,5 +1,9 @@
 from odoo import models, fields
 
+PROJECT_TASK_READABLE_FIELDS = {
+    "code",
+}
+
 PROJECT_TASK_WRITABLE_FIELDS = {
     "code",
 }
@@ -15,10 +19,13 @@ class ProjectTask(models.Model):
         "UNIQUE(code, company_id)",
         "code must be unique per company!",
     )
+    @property
+    def TASK_PORTAL_READABLE_FIELDS(self):
+        return super().TASK_PORTAL_READABLE_FIELDS | PROJECT_TASK_READABLE_FIELDS
 
     @property
-    def SELF_WRITABLE_FIELDS(self):
-        return super().SELF_WRITABLE_FIELDS | PROJECT_TASK_WRITABLE_FIELDS
+    def TASK_PORTAL_WRITABLE_FIELDS(self):
+        return super().TASK_PORTAL_WRITABLE_FIELDS | PROJECT_TASK_WRITABLE_FIELDS
 
     company_code = fields.Char(
         related="company_id.code",
