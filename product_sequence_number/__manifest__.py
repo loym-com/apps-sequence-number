@@ -1,10 +1,11 @@
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2026 FIQ
+# License HL3 or later (https://firstdonoharm.dev/build).
 {
     "name": "Product No.",
-    "summary": " ",
+    "summary": "Product sequence number management",
     "version": "19.0.5.0.5",
-    "author": "FIQ, Loym",
-    "website": "https://www.loym.com",
+    "author": "FIQ",
+    "website": "https://www.fiq.no",
     "license": "AGPL-3",
     "category": "Product",
     "depends": [

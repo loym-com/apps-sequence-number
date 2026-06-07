@@ -1,5 +1,5 @@
 # Copyright 2025 FIQ
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+# License HL3 or later (https://firstdonoharm.dev/build).
 
 {
     "name": "Model Code",

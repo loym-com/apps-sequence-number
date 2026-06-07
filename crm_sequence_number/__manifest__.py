@@ -1,12 +1,12 @@
-# Copyright (C) 2025 Loym
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# Copyright (C) 2025 FIQ
+# License HL3 or later (https://firstdonoharm.dev/build).
 
 
 {
     "name": "Lead/Opportunity No.",
     "version": "19.0.5.0.3",
-    "author": "FIQ, Loym",
-    "website": "https://www.loym.com",
+    "author": "FIQ",
+    "website": "https://www.fiq.no",
     "license": "LGPL-3",
     "category": "",
     "depends": [

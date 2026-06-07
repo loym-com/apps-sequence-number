@@ -1,10 +1,10 @@
-# Copyright 2025 Loym
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+# Copyright 2025 FIQ
+# License HL3 or later (https://firstdonoharm.dev/build).
 
 {
     "name": "Contact No.",
     "summary": "",
-    "author": "FIQ, Loym",
+    "author": "FIQ",
     "data": [
         "data/ir_actions_server_data.xml",
         "data/ir_sequence.xml",
@@ -17,7 +17,7 @@
     ],
     "license": "AGPL-3",
     "version": "19.0.5.0.5",
-    "website": "https://www.loym.com",
+    "website": "https://www.fiq.no",
     "post_init_hook": "post_init_hook",
     "uninstall_hook": "pre_uninstall_hook",
 }
