@@ -9,3 +9,8 @@ class IrModel(models.Model):
         string="Code",
         help="A short code to identify the model. Useful to compute mail aliases who need to be globally unique.",
     )
+
+    _code_unique = models.Constraint(
+        "UNIQUE(code)",
+        "The model code must be unique.",
+    )
